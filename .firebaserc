@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "pokeapp-f1c97"
+  },
+  "targets": {
+    "pokeapp-f1c97": {
+      "hosting": {
+        "app": [
+          "pokeapp-f1c97"
+        ]
+      }
+    }
+  }
+}
