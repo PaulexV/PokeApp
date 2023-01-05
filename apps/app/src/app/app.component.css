@@ -1,3 +1,30 @@
-.centered {
+.container {
+  margin: 0;
+  /* padding-top: 20px; */
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(95, 2, 31, 0.5);
+  display: flex;
+  justify-content: space-around;
+  flex-flow: column;
+}
+
+@media (max-width: 500px) {
+  .container {
+    flex-flow: column-reverse;
+  }
+}
+
+.content {
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  flex-flow: column;
   align-items: center;
+  padding: 10px;
+}
+
+.logo {
+  width: 200px;
+  object-fit: cover;
 }

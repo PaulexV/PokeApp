@@ -1,0 +1,13 @@
+.navbar {
+    display: flex;
+    justify-content: center;
+    justify-self: flex-start;
+}
+.navbar div {
+    border: 1px solid white;
+    color: white;
+    padding: 5px;
+    margin: 0;
+    text-align: center;
+    width: 25%;
+}
