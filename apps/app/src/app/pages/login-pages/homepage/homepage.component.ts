@@ -4,12 +4,13 @@ import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { HeaderComponent } from '../../../components/header/header.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
 	standalone: true,
 	selector: 'poke-app-home-page',
 	templateUrl: './homepage.component.html',
 	styleUrls: ['./homepage.component.css'],
-	imports: [CommonModule, MatCardModule, MatInputModule, MatButtonModule, HeaderComponent],
+	imports: [CommonModule, MatCardModule, MatInputModule, MatButtonModule, HeaderComponent, RouterModule],
 })
 export class HomePageComponent {}
