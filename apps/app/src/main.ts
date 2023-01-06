@@ -1,11 +1,14 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 import { AppComponent } from './app/app.component';
+import { appRoutes } from './app/app.routes';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { importProvidersFrom, isDevMode } from '@angular/core';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { provideRouter, withEnabledBlockingInitialNavigation } from '@angular/router';
 
 bootstrapApplication(AppComponent, {
 	providers: [
+		provideRouter(appRoutes, withEnabledBlockingInitialNavigation()),
 		importProvidersFrom(
 			BrowserAnimationsModule,
 			ServiceWorkerModule.register('ngsw-worker.js', {
