@@ -3,9 +3,17 @@ nav {
     justify-content: center;
     justify-self: flex-start;
 }
+a {
+    color: white;
+}
+
+.active-link {
+    color: black;
+    background-color: white;
+}
+
 nav a {
     border: 1px solid white;
-    color: white;
     padding: 15px;
     margin: 0;
     width: 25%;
