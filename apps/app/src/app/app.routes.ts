@@ -7,12 +7,12 @@ import { SigninPageComponent } from './pages/login-pages/signin-page/signin-page
 import { LoginPageComponent } from './pages/login-pages/login-page/login-page.component';
 
 export const appRoutes: Route[] = [
-	{ path: '', component: HomePageComponent },
 	{ path: 'home', component: HomePageComponent },
 	{ path: 'pokedex', component: PokedexComponent },
 	{ path: 'play', component: HuntComponent },
 	{ path: 'profile', component: ProfileComponent },
 	{ path: 'register', component: SigninPageComponent },
 	{ path: 'login', component: LoginPageComponent },
+	{ path: '', component: HomePageComponent },
 	{ path: '**', redirectTo: '' },
 ];

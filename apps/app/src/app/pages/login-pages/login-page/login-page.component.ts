@@ -10,6 +10,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
+import { HeaderComponent } from '../../../components/header/header.component';
 
 @Component({
   selector: 'poke-app-login-page',
@@ -20,6 +21,7 @@ import { AuthService } from '../../../services/auth.service';
     MatInputModule,
     MatButtonModule,
     ReactiveFormsModule,
+    HeaderComponent
   ],
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.css'],
