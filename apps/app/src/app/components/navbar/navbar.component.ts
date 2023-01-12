@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
 	standalone: true,
@@ -10,11 +11,11 @@ import { Observable } from 'rxjs';
 	styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
-	isLoggedIn$: Observable<boolean>;
+	isLoggedIn$: Observable<boolean> | undefined;
 
 	constructor(private authService: AuthService) {}
 
 	ngOnInit() {
-		this.isLoggedIn$ = this.authService.isLoggedIn;
+		this.isLoggedIn$ = this.authService.isLoggedIn$;
 	}
 }

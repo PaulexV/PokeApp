@@ -5,13 +5,22 @@ import { PokedexComponent } from './pages/pokedex/pokedex.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { RouterModule } from '@angular/router';
 import { HomePageComponent } from './pages/login-pages/homepage/homepage.component';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
 	standalone: true,
 	selector: 'poke-app-root',
 	templateUrl: './app.component.html',
 	styleUrls: ['./app.component.css'],
-	imports: [RouterModule, NavbarComponent, HuntComponent, PokedexComponent, ProfileComponent, HomePageComponent],
+	imports: [
+		RouterModule,
+		NavbarComponent,
+		HuntComponent,
+		PokedexComponent,
+		ProfileComponent,
+		HomePageComponent,
+		AsyncPipe,
+	],
 })
 export class AppComponent {
 	title = 'app';
