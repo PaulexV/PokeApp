@@ -5,7 +5,9 @@ import { PokedexComponent } from './pages/pokedex/pokedex.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { RouterModule } from '@angular/router';
 import { HomePageComponent } from './pages/login-pages/homepage/homepage.component';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, CommonModule } from '@angular/common';
+import { Observable } from 'rxjs';
+import { AuthService } from './services/auth.service';
 
 @Component({
 	standalone: true,
@@ -13,6 +15,7 @@ import { AsyncPipe } from '@angular/common';
 	templateUrl: './app.component.html',
 	styleUrls: ['./app.component.css'],
 	imports: [
+		CommonModule,
 		RouterModule,
 		NavbarComponent,
 		HuntComponent,
@@ -24,4 +27,11 @@ import { AsyncPipe } from '@angular/common';
 })
 export class AppComponent {
 	title = 'app';
+
+	isLoggedIn$: Observable<boolean> = this.auth.isLoggedIn$;
+	constructor(private readonly auth: AuthService) {}
+
+	logout() {
+		this.auth.signOut()
+	}
 }
