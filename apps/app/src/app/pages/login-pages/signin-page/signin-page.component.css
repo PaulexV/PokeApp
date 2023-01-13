@@ -1,0 +1,11 @@
+mat-card {
+    background-color: rgba(95, 2, 31, 0.2);
+}
+
+.register-page, form {
+    color: white;
+    display: flex;
+    justify-content: center;
+    flex-flow: column;
+    align-items: center;
+}

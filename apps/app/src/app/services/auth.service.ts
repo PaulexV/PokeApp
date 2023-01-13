@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {
   Auth,
   authState,
+  createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
   User,
@@ -22,6 +23,20 @@ export class AuthService {
 
   signIn(email: string, password: string) {
     from(signInWithEmailAndPassword(this.auth, email, password))
+      .pipe(
+        catchError(() => {
+          this.displayFailedPopup();
+          return NEVER;
+        }),
+        take(1)
+      )
+      .subscribe(() => {
+        this.router.navigateByUrl('/');
+      });
+  }
+
+  register(email: string, password: string) {
+    from(createUserWithEmailAndPassword(this.auth, email, password))
       .pipe(
         catchError(() => {
           this.displayFailedPopup();
