@@ -1,27 +1,37 @@
 import { Component } from '@angular/core';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { HomeComponent } from './pages/home/home.component';
 import { HuntComponent } from './pages/hunt/hunt.component';
 import { PokedexComponent } from './pages/pokedex/pokedex.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { RouterModule } from '@angular/router';
-import { LoginPageComponent } from './pages/login-page/login-page.component';
+import { HomePageComponent } from './pages/login-pages/homepage/homepage.component';
+import { AsyncPipe, CommonModule } from '@angular/common';
+import { Observable } from 'rxjs';
+import { AuthService } from './services/auth.service';
 
 @Component({
 	standalone: true,
-	imports: [
-		RouterModule,
-		NavbarComponent,
-		HomeComponent,
-		HuntComponent,
-		PokedexComponent,
-		ProfileComponent,
-		LoginPageComponent,
-	],
 	selector: 'poke-app-root',
 	templateUrl: './app.component.html',
 	styleUrls: ['./app.component.css'],
+	imports: [
+		CommonModule,
+		RouterModule,
+		NavbarComponent,
+		HuntComponent,
+		PokedexComponent,
+		ProfileComponent,
+		HomePageComponent,
+		AsyncPipe,
+	],
 })
 export class AppComponent {
 	title = 'app';
+
+	isLoggedIn$: Observable<boolean> = this.auth.isLoggedIn$;
+	constructor(private readonly auth: AuthService) {}
+
+	logout() {
+		this.auth.signOut()
+	}
 }
