@@ -23,7 +23,8 @@ import { HeaderComponent } from '../../../components/header/header.component';
 })
 export class SigninPageComponent {
   registerForm = this.formBuilder.group({
-    register: new FormControl<string>('', [Validators.required, Validators.email]),
+    username: new FormControl<string>('', Validators.required),
+    email: new FormControl<string>('', [Validators.required, Validators.email]),
     password: new FormControl<string>('', Validators.required),
     confirmPassword: new FormControl<string>('', Validators.required),
   }, {validator: this.checkIfMatchingPasswords('password', 'confirmPassword')});
@@ -42,8 +43,8 @@ checkIfMatchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
   }
 }
 
-  get register() {
-    return this.registerForm.get('register');
+  get email() {
+    return this.registerForm.get('email');
   }
 
   constructor(
@@ -52,7 +53,7 @@ checkIfMatchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
   ) {}
 
   doRegister() {
-    const { register, password } = this.registerForm.value;
-    this.auth.register(register || '', password || '');
+    const { username, email, password } = this.registerForm.value;
+    this.auth.register(username || '', email || '', password || '');
   }
 }
