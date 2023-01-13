@@ -1,0 +1,36 @@
+<style>
+	@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+</style>
+
+<div class="wrap">
+	<div class="search">
+		<input type="text" class="searchTerm" placeholder="Rechercher un Pokemon" />
+		<button (click)="refreshSearch()" type="submit" class="searchButton">
+			<i class="fa fa-search"></i>
+		</button>
+	</div>
+</div>
+
+<div class="filter_list" style="display: flex; flex-direction: column;">
+	<h2>Type :</h2>
+	<div style="display: flex; flex-wrap: wrap; justify-content: space-around">
+		<div *ngFor="let type of types">
+			<button id="type{{ type.name }}" (click)="toggleButton(type.name)" style="width: 150px" class="type-unselected">
+				{{ type.name }}
+				<img style="width: 50px" src="{{ type.image }}" />
+			</button>
+		</div>
+	</div>
+	<div class="hide_known switch" style="display: flex;">
+		<label class="switch">
+			<input type="checkbox" />
+			<span class="slider round"></span>
+		</label>
+	</div>
+	<div class="hide_unknown switch">
+		<label class="switch">
+			<input type="checkbox" />
+			<span class="slider round"></span>
+		</label>
+	</div>
+</div>

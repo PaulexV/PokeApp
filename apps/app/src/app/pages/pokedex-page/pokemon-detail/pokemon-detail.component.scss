@@ -1,0 +1,15 @@
+.pokemon-detail {
+  padding: 2rem;
+  display: flex;
+  align-content: stretch;
+  justify-content: space-between;
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+  }
+  
+.flex-container > div {
+    background-color: grey;
+}
