@@ -23,8 +23,8 @@ export class PokedexSearchComponent {
 	type_selected = 0;
 	selected_types: string[] = [];
 
-	refreshSearch() {
-		this.search.emit({ search: '', selectedTypes: this.selected_types, hideNotOwned: false, hideUnkown: false });
+	refreshSearch(searchQuerry: string) {
+		this.search.emit({ search: searchQuerry, selectedTypes: this.selected_types, hideNotOwned: false, hideUnkown: false });
 	}
 
 	toggleButton(type_name: string) {
@@ -43,6 +43,5 @@ export class PokedexSearchComponent {
 				this.selected_types.splice(index, 1);
 			}
 		}
-		console.log(this.selected_types);
 	}
 }

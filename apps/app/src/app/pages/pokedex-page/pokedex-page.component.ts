@@ -21,7 +21,7 @@ export class PokemonsPageComponent {
 	searchCriteria: SearchCriteria = {search: '', selectedTypes: [], hideNotOwned: false, hideUnkown: false}
   
 	constructor(private readonly pokemonsServices: PokemonsService) {
-	  this.model$ = pokemonsServices.getPokemonsList(this.buildUrlByFilters([]));
+	  this.model$ = pokemonsServices.getPokemonsList(this.buildUrlByFilters([]), this.searchCriteria.search);
 	  this.types_model$ = pokemonsServices.getTypeList();
 	}
   
@@ -43,6 +43,6 @@ export class PokemonsPageComponent {
 
 	newSearch(criteria: SearchCriteria){
 		this.searchCriteria = criteria;
-		this.model$ = this.pokemonsServices.getPokemonsList(this.buildUrlByFilters(this.searchCriteria.selectedTypes));
+		this.model$ = this.pokemonsServices.getPokemonsList(this.buildUrlByFilters(this.searchCriteria.selectedTypes), this.searchCriteria.search);
 	}
   }

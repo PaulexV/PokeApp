@@ -28,7 +28,7 @@ interface ApiType {
 export class PokemonsService {
 	constructor(private readonly httpService: HttpClient) {}
 
-	getPokemonsList(querry: string): Observable<PokemonPageModel> {
+	getPokemonsList(querry: string, searchQuerry: string): Observable<PokemonPageModel> {
 		return this.httpService
 			.get<ApiPokemon[]>(querry, {
 				headers: { Accept: 'application/json' },
@@ -40,14 +40,14 @@ export class PokemonsService {
 						name: p.name,
 						image_url: p.image,
 						types: p.apiTypes.map((t) => t.image),
-					})),
+					})).filter((p) => p.name.toLowerCase().includes(searchQuerry.toLowerCase())),
 				}))
 			);
 	}
 
 	getTypeList(): Observable<TypePageModel> {
 		return this.httpService
-			.get<ApiType[]>("https://pokebuildapi.fr/api/v1/types", {
+			.get<ApiType[]>('https://pokebuildapi.fr/api/v1/types', {
 				headers: { Accept: 'application/json' },
 			})
 			.pipe(

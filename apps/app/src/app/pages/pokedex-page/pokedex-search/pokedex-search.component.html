@@ -4,8 +4,8 @@
 
 <div class="wrap">
 	<div class="search">
-		<input type="text" class="searchTerm" placeholder="Rechercher un Pokemon" />
-		<button (click)="refreshSearch()" type="submit" class="searchButton">
+		<input #searchQuerry type="text" id="searchQuerry" class="searchTerm" placeholder="Rechercher un Pokemon" />
+		<button (click)="refreshSearch(searchQuerry.value)" type="submit" class="searchButton">
 			<i class="fa fa-search"></i>
 		</button>
 	</div>
