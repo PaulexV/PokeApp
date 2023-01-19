@@ -40,7 +40,7 @@ export class PokemonsService {
 						name: p.name,
 						image_url: p.image,
 						types: p.apiTypes.map((t) => t.image),
-					})).filter((p) => p.name.toLowerCase().includes(searchQuerry.toLowerCase())),
+					})).filter((p) => p.name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().includes(searchQuerry.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase())),
 				}))
 			);
 	}
