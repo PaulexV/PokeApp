@@ -11,13 +11,13 @@ import { catchError, from, map, NEVER, Observable, take, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { addDoc, doc, Firestore } from '@angular/fire/firestore';
 import { collection, setDoc } from '@firebase/firestore';
+import { PokeUser } from '../models/user';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   isLoggedIn$: Observable<boolean> = authState(this.auth).pipe(
-    tap(console.log),
     map((user) => !!user)
   );
   user$: Observable<User | null> = authState(this.auth);
@@ -50,7 +50,19 @@ export class AuthService {
         take(1)
       )
       .subscribe((creds) => {
-        setDoc(doc(this.firestore, "users", creds.user.uid), {name: username})
+        let newUser: PokeUser = {
+          id: creds.user.uid,
+          name: username,
+          captured: [],
+          encountered: [],
+          inventory: {
+            pokeball: 50,
+            superball: 10,
+            hyperball: 3,
+            masterball: 1
+          }
+        }
+        setDoc(doc(this.firestore, "users", creds.user.uid), newUser)
         this.router.navigateByUrl('/');
       });
   }
