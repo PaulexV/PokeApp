@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Type } from '../../model/pokemon';
-import { threadId } from 'worker_threads';
 
 export interface SearchCriteria {
 	search: string;
@@ -17,6 +16,7 @@ export interface SearchCriteria {
 	templateUrl: './pokedex-search.component.html',
 	styleUrls: ['./pokedex-search.component.css'],
 })
+
 export class PokedexSearchComponent {
 	@Input() types: Type[] | null = null;
 	@Output() search = new EventEmitter<SearchCriteria>();
@@ -26,6 +26,8 @@ export class PokedexSearchComponent {
 
 	refreshSearch(searchQuerry: string) {
 		this.search.emit({ search: searchQuerry, selectedTypes: this.selected_types, hideNotOwned: false, hideUnkown: false });
+		this.type_selected = 0;
+		this.selected_types = []
 	}
 
 	toggleButton(type_name: string) {
@@ -46,7 +48,8 @@ export class PokedexSearchComponent {
 		}
 	}
 	toggleShow() {
-		console.log(this.isShown)
+		this.type_selected = 0;
+		this.selected_types = []
 		this.isShown = ! this.isShown;
 	}
 }
