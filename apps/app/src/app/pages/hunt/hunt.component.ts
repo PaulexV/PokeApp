@@ -1,14 +1,13 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
-import { from, Observable, take } from 'rxjs';
+import { Observable, take } from 'rxjs';
 import { ballsStats } from './models/pokeball';
 import { HuntService } from './hunt.service';
 import { PokeUser } from '../../models/user';
+import { EncounteredPokemon } from './models/encounteredPkmn';
 import { cooldownTexts } from './models/cooldownTexts';
 import { formatCooldown, getCooldownSeconds, getTimestampWithAddedSeconds } from '../../utils/timeUtils';
-import { Timestamp } from '@angular/fire/firestore';
-import { user } from '@angular/fire/auth';
 
 @Component({
 	selector: 'poke-app-hunt',
@@ -28,19 +27,18 @@ export class HuntComponent {
 		energy: ""
 	}
 
-
-
-	selectedBall: "pokeball" | "superball" | "ultraball" | "masterball" = "pokeball"
+	selectedBall: 'pokeball' | 'superball' | 'ultraball' | 'masterball' = 'pokeball';
 
 	profile$: Observable<PokeUser | null>;
+	currentPkmn: EncounteredPokemon | undefined;
 
 	constructor(private readonly huntService: HuntService) {
 		this.profile$ = this.huntService.getProfile();
 		this.updateCooldown()
 	}
 
-	selectBall(selection: "pokeball" | "superball" | "ultraball" | "masterball" ) {
-		this.selectedBall = selection
+	selectBall(selection: 'pokeball' | 'superball' | 'ultraball' | 'masterball') {
+		this.selectedBall = selection;
 	}
 
 	startHunt() {
@@ -48,16 +46,23 @@ export class HuntComponent {
 			if (!user) return
 			if (user.energy >= 1) {
 				this.huntStarted = true
+				const randomPkmn = this.huntService.getRandomPokemon();
+				randomPkmn.subscribe((val) => {
+					this.currentPkmn = val;
+				});
+
 				if (user.energy === 10) { user.cooldown.energy = getTimestampWithAddedSeconds(5 * 60) }
 				user.energy -= 1
 				this.huntService.updateEnergy(user)
 			}
 		})
+
 		
 	}
 
-	toggleHunt() {
-		this.huntStarted = !this.huntStarted
+	stopHunt() {
+		this.huntStarted = !this.huntStarted;
+		this.currentPkmn = undefined;
 	}
 
 	updateCooldown() {
