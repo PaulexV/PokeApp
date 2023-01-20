@@ -1,6 +1,8 @@
+import { Timestamp } from "@angular/fire/firestore"
+
 export interface PokeUser {
-    id: string, 
-    name: string, 
+    id: string
+    name: string
     inventory: {
         pokeball: number, 
         superball: number,
@@ -9,4 +11,12 @@ export interface PokeUser {
     }
     captured: number[]
     encountered: number[]
+    energy: number
+    cooldown: {
+        pokeball: Timestamp,
+        superball: Timestamp,
+        ultraball: Timestamp,
+        masterball: Timestamp,
+        energy: Timestamp
+    }
 }
