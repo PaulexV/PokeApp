@@ -1,0 +1,107 @@
+.hunt-page {
+    display: flex;
+    flex-flow: column;
+    color: white;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.pokemon-scene {
+    display: flex;
+    object-fit: contain;
+    height: 300px;
+}
+
+.pokemon-div {
+    height: 300px;
+    object-fit: contain;
+    margin-bottom: 20px;
+}
+
+.pokemon {
+    position: absolute;
+    z-index: 1000;
+    height: 175px;
+    left: 50%;
+    transform: translate(-50%,0);
+    margin-top: 75px;
+}
+
+.pokemon-log {
+    margin-top: 40px;
+    font-size: 26px;
+}
+
+.start-hunt-panel {
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.btn {
+    --mdc-protected-button-container-color: #5F021F;
+    --mdc-protected-button-label-text-color: white;
+    border: solid black 1px;
+    color: white;
+    border-radius: 25px;
+    width: 150px;
+    margin: 10px;
+    padding: 10px;
+    box-shadow: 0px 2px 5px black;
+}
+
+.energy {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: row;
+}
+.energy img {
+    width: 25px;
+    margin: 5px;
+}
+
+.balls {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.balls div img {
+    height: 50px;
+    user-drag: none;
+    -webkit-user-drag: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+.balls div {
+    margin: 0 20px;
+    padding: 5px;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+}
+.balls div span {
+    display: block;
+    background-color: #5F021F;
+    padding: 5px;
+    width: 20px;
+    text-align: center;
+    border-radius: 30px;
+    float: right;
+    transform: translate(15px, -20px);
+}
+
+.selected {
+    background-color: white;
+    border-radius: 40px;
+}
+
+.btn-panel {
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+}
