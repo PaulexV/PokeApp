@@ -5,13 +5,16 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
+  user,
   User,
 } from '@angular/fire/auth';
-import { catchError, from, map, NEVER, Observable, take, tap } from 'rxjs';
+import { catchError, from, map, NEVER, Observable, take, tap, timestamp } from 'rxjs';
 import { Router } from '@angular/router';
 import { addDoc, doc, Firestore } from '@angular/fire/firestore';
-import { collection, setDoc } from '@firebase/firestore';
+import { collection, setDoc, Timestamp } from '@firebase/firestore';
 import { PokeUser } from '../models/user';
+import { ballsStats } from '../pages/hunt/models/pokeball';
+import { generateNewUser } from '../utils/generateNewUser';
 
 @Injectable({
   providedIn: 'root',
@@ -50,19 +53,7 @@ export class AuthService {
         take(1)
       )
       .subscribe((creds) => {
-        let newUser: PokeUser = {
-          id: creds.user.uid,
-          name: username,
-          captured: [],
-          encountered: [],
-          inventory: {
-            pokeball: 50,
-            superball: 10,
-            ultraball: 3,
-            masterball: 1
-          }
-        }
-        setDoc(doc(this.firestore, "users", creds.user.uid), newUser)
+        setDoc(doc(this.firestore, "users", creds.user.uid), generateNewUser(creds.user.uid, username))
         this.router.navigateByUrl('/');
       });
   }
