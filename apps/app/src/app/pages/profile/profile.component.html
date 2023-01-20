@@ -1,1 +1,2 @@
 <p>PROFILE PAGE</p>
+<button *ngIf="(isLoggedIn$ | async)" (click)="logout()">LOGOUT</button>
