@@ -1,8 +1,10 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { doc, docData, Firestore } from '@angular/fire/firestore';
-import { Observable, of, switchMap } from 'rxjs';
+import { map, Observable, of, switchMap } from 'rxjs';
 import { PokeUser } from '../../models/user';
 import { AuthService } from '../../services/auth.service';
+import { EncounteredPokemon } from './models/encounteredPkmn';
 
 @Injectable({
 	providedIn: 'root',
@@ -25,5 +27,33 @@ export class ProfileService {
 	private getProfileData(userId: string): Observable<PokeUser> {
 		const profile = doc(this.firestore, `users/${userId}`);
 		return docData(profile) as Observable<PokeUser>;
+	}
+}
+
+@Injectable({
+	providedIn: 'root',
+})
+export class HuntService {
+	constructor(private readonly httpService: HttpClient) {}
+
+	getRandomNumberId() {
+		return Math.floor(Math.random() * 898);
+	}
+
+	getRandomPokemon() {
+		const random = this.getRandomNumberId();
+
+		return this.httpService
+			.get<EncounteredPokemon>(`https://pokebuildapi.fr/api/v1/pokemon/${random}`, {
+				headers: { Accept: 'application/json' },
+			})
+			.pipe(
+				map((Response) => ({
+					id: Response.id,
+					pokedexId: Response.pokedexId,
+					name: Response.name,
+					image: Response.image,
+				}))
+			);
 	}
 }

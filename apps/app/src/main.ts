@@ -8,9 +8,9 @@ import { provideRouter, withEnabledBlockingInitialNavigation } from '@angular/ro
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from './environements/environment';
 import { getAuth, provideAuth } from '@angular/fire/auth';
-import { provideHttpClient } from '@angular/common/http';
+import { HttpClientModule, provideHttpClient } from '@angular/common/http';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
-import {provideStorage, getStorage} from "@angular/fire/storage"
+import { provideStorage, getStorage } from '@angular/fire/storage';
 
 bootstrapApplication(AppComponent, {
 	providers: [
@@ -18,6 +18,7 @@ bootstrapApplication(AppComponent, {
 		provideHttpClient(),
 		importProvidersFrom(
 			BrowserAnimationsModule,
+			HttpClientModule,
 			ServiceWorkerModule.register('ngsw-worker.js', {
 				enabled: !isDevMode(),
 				// Register the ServiceWorker as soon as the application is stable

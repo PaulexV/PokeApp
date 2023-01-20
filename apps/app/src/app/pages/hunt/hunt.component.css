@@ -6,10 +6,30 @@
     align-items: center;
 }
 
+.pokemon-scene {
+    display: flex;
+    object-fit: contain;
+    height: 300px;
+}
+
 .pokemon-div {
     height: 300px;
     object-fit: contain;
     margin-bottom: 20px;
+}
+
+.pokemon {
+    position: absolute;
+    z-index: 1000;
+    height: 175px;
+    left: 50%;
+    transform: translate(-50%,0);
+    margin-top: 75px;
+}
+
+.pokemon-log {
+    margin-top: 40px;
+    font-size: 26px;
 }
 
 .start-hunt-panel {
