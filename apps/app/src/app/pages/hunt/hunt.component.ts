@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AuthService } from '../../services/auth.service';
 import { MatButtonModule } from '@angular/material/button';
 import { Observable } from 'rxjs';
 import { ballsStats } from './models/pokeball';
+import { ProfileService } from './hunt.service';
+import { PokeUser } from '../../models/user';
 
 @Component({
 	selector: 'poke-app-hunt',
@@ -18,7 +19,11 @@ export class HuntComponent {
 
 	selectedBall: "pokeball" | "superball" | "ultraball" | "masterball" = "pokeball"
 
-	constructor(private readonly auth: AuthService) {}
+	profile$: Observable<PokeUser | null>;
+
+	constructor(private readonly profileService: ProfileService) {
+		this.profile$ = this.profileService.getProfile();
+	}
 
 	selectBall(selection: "pokeball" | "superball" | "ultraball" | "masterball" ) {
 		this.selectedBall = selection

@@ -4,7 +4,7 @@ export interface PokeUser {
     inventory: {
         pokeball: number, 
         superball: number,
-        hyperball: number,
+        ultraball: number,
         masterball: number
     }
     captured: number[]

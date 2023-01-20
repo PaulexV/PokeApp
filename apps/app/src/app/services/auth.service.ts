@@ -58,7 +58,7 @@ export class AuthService {
           inventory: {
             pokeball: 50,
             superball: 10,
-            hyperball: 3,
+            ultraball: 3,
             masterball: 1
           }
         }

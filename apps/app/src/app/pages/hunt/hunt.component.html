@@ -1,4 +1,4 @@
-<div class="hunt-page">
+<div class="hunt-page" *ngIf="profile$ | async; let profile">
     <h1>Hunt</h1>
     <img class="pokemon-div" src="../../../assets/pokemon-background.png" alt="" />
     <div *ngIf="!huntStarted" class="start-hunt-panel">
@@ -13,19 +13,19 @@
         <div class="balls">
             <div id="pokeball" (click)="selectBall('pokeball')" [ngClass]="{'selected': selectedBall === 'pokeball'}">
                 <img src="../../../assets/pokeballs/pokeball.png" alt="pokeball">
-                <span>50</span>
+                <span>{{profile.inventory.pokeball}}</span>
             </div>
             <div id="superball" (click)="selectBall('superball')" [ngClass]="{'selected': selectedBall === 'superball'}">
                 <img src="../../../assets/pokeballs/superball.png" alt="superball">
-                <span>10</span>
+                <span>{{profile.inventory.superball}}</span>
             </div>
             <div id="ultraball" (click)="selectBall('ultraball')" [ngClass]="{'selected': selectedBall === 'ultraball'}">
                 <img src="../../../assets/pokeballs/ultraball.png" alt="ultraball">
-                <span>5</span>
+                <span>{{profile.inventory.ultraball}}</span>
             </div>
             <div id="masterball" (click)="selectBall('masterball')" [ngClass]="{'selected': selectedBall === 'masterball'}">
                 <img src="../../../assets/pokeballs/masterball.png" alt="masterball">
-                <span>1</span>
+                <span>{{profile.inventory.masterball}}</span>
             </div>
         </div>
         <p>Catchrate: <b>{{ballsStats[selectedBall].catchrate}}%</b></p>
