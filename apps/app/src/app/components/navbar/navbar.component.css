@@ -1,13 +1,27 @@
-.navbar {
+nav {
     display: flex;
     justify-content: center;
     justify-self: flex-start;
 }
-.navbar div {
-    border: 1px solid white;
+a {
     color: white;
-    padding: 5px;
+}
+
+.active-link {
+    color: black;
+    background-color: white;
+}
+
+nav a {
+    border: 1px solid white;
+    padding: 15px;
     margin: 0;
-    text-align: center;
     width: 25%;
+    text-align: center;
+    text-decoration: none;
+}
+
+nav a:hover {
+    color: black;
+    background-color: white;
 }
