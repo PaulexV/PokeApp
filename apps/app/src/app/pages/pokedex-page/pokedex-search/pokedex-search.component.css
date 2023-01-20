@@ -43,7 +43,10 @@ body {
 
 .filter_list {
 	width: 50%;
-	background-color: white;
+	background-color: #9b6e7c;
+	flex-direction: column;
+	justify-content: center;
+	margin: auto;
 }
 
 .type-selected {
@@ -115,4 +118,20 @@ input:checked + .slider:before {
 
 .switch {
 	margin: auto;
+}
+
+.type_container {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	overflow: scroll;
+	height: 20rem;
+}
+
+.type_image {
+	width: 50px;
+}
+
+.type-selected, .type-unselected {
+	width: 20rem;
 }

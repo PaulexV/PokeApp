@@ -1,12 +1,12 @@
 <div class="pokemon-details" style="margin-top:50px; margin-right: 10%;" *ngIf="pokemon">
-  <div style="display: flex;" class="card">
-    <img style="width: 30%;" [src]="pokemon.image_url">
-    <div style="width: 100%;"class="container">
+  <div class="card">
+    <img class="poke_image" [src]="pokemon.image_url">
+    <div class="container">
       <h4>
         <b>{{ pokemon.name }}</b>
       </h4>
-      <img style="width: 20%;" [src]="pokemon.types[0]">
-      <img style="width: 20%;" [src]="pokemon.types[1]">
+      <img style="width: 40%;" [src]="pokemon.types[0]">
+      <img style="width: 40%;" [src]="pokemon.types[1]">
     </div>
   </div>
 </div>

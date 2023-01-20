@@ -22,6 +22,7 @@ export class PokedexSearchComponent {
 	@Output() search = new EventEmitter<SearchCriteria>();
 	type_selected = 0;
 	selected_types: string[] = [];
+	isShown = false ;
 
 	refreshSearch(searchQuerry: string) {
 		this.search.emit({ search: searchQuerry, selectedTypes: this.selected_types, hideNotOwned: false, hideUnkown: false });
@@ -43,5 +44,9 @@ export class PokedexSearchComponent {
 				this.selected_types.splice(index, 1);
 			}
 		}
+	}
+	toggleShow() {
+		console.log(this.isShown)
+		this.isShown = ! this.isShown;
 	}
 }
