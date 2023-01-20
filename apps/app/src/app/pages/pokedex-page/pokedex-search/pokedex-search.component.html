@@ -1,0 +1,33 @@
+<div class="wrap">
+	<div class="search">
+		<input #searchQuerry type="text" id="searchQuerry" class="searchTerm" placeholder="Rechercher un Pokemon" />
+		<button (click)="refreshSearch(searchQuerry.value)" type="submit" class="searchButton">
+			<i class="fa fa-search"></i>
+		</button>
+		<button (click)="toggleShow()" type="checkbox" >Filtres</button>
+	</div>
+</div>
+
+<div *ngIf="isShown" class="filter_list" >
+	<h2>Choisissez les types ( 2 maximum )</h2>
+	<div class="type_container">
+		<div *ngFor="let type of types">
+			<button id="type{{ type.name }}" (click)="toggleButton(type.name)" class="type-unselected">
+				{{ type.name }}
+				<img class="type_image" src="{{ type.image }}" />
+			</button>
+		</div>
+	</div>
+	<div class="hide_known switch" style="display: flex;">
+		<label class="switch">
+			<input type="checkbox" />
+			<span class="slider round"></span>
+		</label>
+	</div>
+	<div class="hide_unknown switch">
+		<label class="switch">
+			<input type="checkbox" />
+			<span class="slider round"></span>
+		</label>
+	</div>
+</div>

@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HuntComponent } from './pages/hunt/hunt.component';
-import { PokedexComponent } from './pages/pokedex/pokedex.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { RouterModule } from '@angular/router';
 import { HomePageComponent } from './pages/login-pages/homepage/homepage.component';
+import { PokemonsPageComponent } from './pages/pokedex-page/pokedex-page.component'
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 import { AuthService } from './services/auth.service';
@@ -19,7 +19,7 @@ import { AuthService } from './services/auth.service';
 		RouterModule,
 		NavbarComponent,
 		HuntComponent,
-		PokedexComponent,
+		PokemonsPageComponent,
 		ProfileComponent,
 		HomePageComponent,
 		AsyncPipe,
