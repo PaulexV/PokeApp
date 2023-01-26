@@ -29,8 +29,13 @@ export class HuntComponent {
 
 	selectedBall: 'pokeball' | 'superball' | 'ultraball' | 'masterball' = 'pokeball';
 
+	pokemonLog = ''
+
 	profile$: Observable<PokeUser | null>;
 	currentPkmn: EncounteredPokemon | undefined;
+
+	capturing = false
+	captured = false
 
 	constructor(private readonly huntService: HuntService) {
 		this.profile$ = this.huntService.getProfile();
@@ -45,24 +50,60 @@ export class HuntComponent {
 		this.profile$.pipe(take(1)).subscribe(user => {
 			if (!user) return
 			if (user.energy >= 1) {
-				this.huntStarted = true
 				const randomPkmn = this.huntService.getRandomPokemon();
 				randomPkmn.subscribe((val) => {
+					this.huntStarted = true
 					this.currentPkmn = val;
+					this.pokemonLog = `A wild ${this.currentPkmn.name} appeared !`
+					!user.encountered.includes(this.currentPkmn.pokedexId) && user.encountered.push(this.currentPkmn.pokedexId)
+
+					if (user.energy === 10) { user.cooldown.energy = getTimestampWithAddedSeconds(5 * 60) }
+					user.energy -= 1
+					this.huntService.updateHuntStart(user)
 				});
-
-				if (user.energy === 10) { user.cooldown.energy = getTimestampWithAddedSeconds(5 * 60) }
-				user.energy -= 1
-				this.huntService.updateEnergy(user)
 			}
-		})
-
-		
+		})		
 	}
 
 	stopHunt() {
 		this.huntStarted = !this.huntStarted;
 		this.currentPkmn = undefined;
+		this.capturing = false
+		this.captured = false
+	}
+
+	capture() {
+		this.capturing = true
+
+		const pokemonCaptured = Math.random() <= this.ballsStats[this.selectedBall].catchrate/100
+		const pokemonRan = Math.random() <= 0.25
+		this.profile$.pipe(take(1)).subscribe(user => {
+			if (!user) return
+			user.inventory[this.selectedBall] -= 1
+			if (pokemonCaptured) {
+				user.captured.push(this.currentPkmn?.pokedexId as number)
+			}
+			this.huntService.updateCapture(user)
+		})
+
+		setTimeout(() => {
+			if (pokemonCaptured) {
+				this.pokemonLog = `${this.currentPkmn?.name} has been captured !`
+				this.captured = true
+				setTimeout(() => this.stopHunt(), 2000)
+
+			} else {
+				this.pokemonLog = `${this.currentPkmn?.name} broke free !`
+				if(pokemonRan) {
+					setTimeout(() => {
+						this.pokemonLog = `${this.currentPkmn?.name} escaped !`
+						setTimeout(() => this.stopHunt(), 2000)
+					}, 2000)
+				} else {
+					this.capturing = false
+				}
+			}
+		}, Math.random() * 3000 + 1000)
 	}
 
 	updateCooldown() {
@@ -90,7 +131,7 @@ export class HuntComponent {
 							if (user.energy < 10) user.energy += 1
 						}
 						user.cooldown.energy = getTimestampWithAddedSeconds(interval)
-						this.huntService.updateEnergy(user)
+						this.huntService.updateHuntStart(user)
 					}
 					this.cooldownTexts.energy = formatCooldown(interval)
 					

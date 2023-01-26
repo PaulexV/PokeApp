@@ -60,9 +60,15 @@ import { EncounteredPokemon } from './models/encounteredPkmn';
       })
     }
 
-    updateEnergy({energy, id, cooldown}: PokeUser) {
+    updateHuntStart({energy, id, cooldown, encountered}: PokeUser) {
       updateDoc(doc(this.firestore, 'users', id), {
-        energy, cooldown
+        energy, cooldown, encountered
+      })
+    }
+
+    updateCapture({ id, inventory, captured }:PokeUser) {
+      updateDoc(doc(this.firestore, 'users', id), {
+        inventory, captured
       })
     }
   }
