@@ -1,12 +1,12 @@
-<div class="pokemon-details" style="margin-top:50px; margin-right: 10%;" *ngIf="pokemon">
-  <div class="card">
-    <img class="poke_image" [src]="pokemon.image_url">
-    <div class="container">
-      <h4>
-        <b>{{ pokemon.name }}</b>
-      </h4>
-      <img style="width: 40%;" [src]="pokemon.types[0]">
-      <img style="width: 40%;" [src]="pokemon.types[1]">
-    </div>
-  </div>
+<div class="pokemon-details" style="margin-top: 50px; margin-right: 10%" *ngIf="pokemon">
+	<div class="card">
+		<img class="poke_image" [src]="pokemon.image_url" />
+		<div class="container">
+			<h1>
+				<b>{{ pokemon.name }}</b>
+			</h1>
+			<img style="width: 25%" [src]="pokemon.types[0]" />
+			<img style="width: 25%" [src]="pokemon.types[1]" />
+		</div>
+	</div>
 </div>

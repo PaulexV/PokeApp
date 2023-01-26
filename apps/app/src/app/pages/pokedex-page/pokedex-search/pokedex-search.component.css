@@ -42,7 +42,7 @@ body {
 }
 
 .filter_list {
-	width: 50%;
+	width: 70%;
 	background-color: #9b6e7c;
 	flex-direction: column;
 	justify-content: center;
@@ -134,4 +134,14 @@ input:checked + .slider:before {
 
 .type-selected, .type-unselected {
 	width: 20rem;
+}
+
+
+.encounteredfilter{
+	display: flex;
+	flex-direction: row;
+}
+
+.switch_filter {
+	width: 50%;
 }

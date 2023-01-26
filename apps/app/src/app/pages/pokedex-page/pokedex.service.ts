@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { PokemonPageModel, TypePageModel } from './model/pokedex-page-model';
+import { HuntService } from '../hunt/hunt.service';
 
 interface ApiTypes {
 	name: string;
@@ -26,21 +27,49 @@ interface ApiType {
 	providedIn: 'root',
 })
 export class PokemonsService {
-	constructor(private readonly httpService: HttpClient) {}
+	constructor(private readonly httpService: HttpClient, private readonly huntService: HuntService) {}
+	captured: number[] | undefined;
+	encountered: number[] | undefined;
 
-	getPokemonsList(querry: string, searchQuerry: string): Observable<PokemonPageModel> {
+	getPokemonsList(
+		query: string,
+		searchQuery: string,
+		hideNotOwned: boolean,
+		hideUnknown: boolean
+	): Observable<PokemonPageModel> {
+		this.huntService.getProfile().subscribe((profile) => {
+			this.encountered = profile?.encountered;
+			this.captured = profile?.captured;
+		});
 		return this.httpService
-			.get<ApiPokemon[]>(querry, {
+			.get<ApiPokemon[]>(query, {
 				headers: { Accept: 'application/json' },
 			})
 			.pipe(
 				map((response) => ({
-					pokemons: response.map((p) => ({
-						id: p.id,
-						name: p.name,
-						image_url: p.image,
-						types: p.apiTypes.map((t) => t.image),
-					})).filter((p) => p.name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().includes(searchQuerry.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase())),
+					pokemons: response
+						.map((p) => ({
+							id: p.id,
+							name: p.name,
+							image_url: p.image,
+							types: p.apiTypes.map((t) => t.image),
+						}))
+						.filter((p) =>
+							p.name
+								.normalize('NFD')
+								.replace(' ', '')
+								.replace(/[\u0300-\u036f]/g, '')
+								.toLowerCase()
+								.includes(
+									searchQuery
+										.normalize('NFD')
+										.replace(' ', '')
+										.replace(/[\u0300-\u036f]/g, '')
+										.toLowerCase()
+								)
+						)
+						.filter((p) => this.captured?.includes(parseInt(p.id)) || !hideNotOwned)
+						.filter((p) => this.encountered?.includes(parseInt(p.id)) || !hideUnknown),
 				}))
 			);
 	}
