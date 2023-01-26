@@ -4,7 +4,7 @@ import { PokemonPageModel, TypePageModel } from './model/pokedex-page-model';
 import { Observable } from 'rxjs';
 import { PokemonsService } from './pokedex.service';
 import { Pokemon } from '../model/pokemon';
-import { PokemonsListComponent } from './pokemons-list/pokemons-list.component'
+import { PokemonsListComponent } from './pokemons-list/pokemons-list.component';
 import { PokedexSearchComponent, SearchCriteria } from './pokedex-search/pokedex-search.component';
 
 @Component({
@@ -18,31 +18,41 @@ export class PokemonsPageComponent {
 	model$: Observable<PokemonPageModel>;
 	types_model$: Observable<TypePageModel>;
 	favoritePokemon = '';
-	searchCriteria: SearchCriteria = {search: '', selectedTypes: [], hideNotOwned: false, hideUnkown: false}
-  
+	searchCriteria: SearchCriteria = { search: '', selectedTypes: [], hideNotOwned: false, hideUnknown: false };
+
 	constructor(private readonly pokemonsServices: PokemonsService) {
-	  this.model$ = pokemonsServices.getPokemonsList(this.buildUrlByFilters([]), this.searchCriteria.search);
-	  this.types_model$ = pokemonsServices.getTypeList();
+		this.model$ = pokemonsServices.getPokemonsList(
+			this.buildUrlByFilters([]),
+			this.searchCriteria.search,
+			this.searchCriteria.hideNotOwned,
+			this.searchCriteria.hideUnknown
+		);
+		this.types_model$ = pokemonsServices.getTypeList();
 	}
-  
+
 	setFavoritePokemon(pokemon: Pokemon) {
-	  this.favoritePokemon = pokemon.name;
+		this.favoritePokemon = pokemon.name;
 	}
 
 	buildUrlByFilters(filters: string[]): string {
-		let query: string
-		if(filters.length == 0){
-			return `https://pokebuildapi.fr/api/v1/pokemon`
+		let query: string;
+		if (filters.length == 0) {
+			return `https://pokebuildapi.fr/api/v1/pokemon`;
 		} else if (filters.length > 1) {
-			query = `s/${filters[0]}/${filters[1]}`
+			query = `s/${filters[0]}/${filters[1]}`;
 		} else {
-			query = `/${filters[0]}`
+			query = `/${filters[0]}`;
 		}
-		return `https://pokebuildapi.fr/api/v1/pokemon/type${query}`
+		return `https://pokebuildapi.fr/api/v1/pokemon/type${query}`;
 	}
 
-	newSearch(criteria: SearchCriteria){
+	newSearch(criteria: SearchCriteria) {
 		this.searchCriteria = criteria;
-		this.model$ = this.pokemonsServices.getPokemonsList(this.buildUrlByFilters(this.searchCriteria.selectedTypes), this.searchCriteria.search);
+		this.model$ = this.pokemonsServices.getPokemonsList(
+			this.buildUrlByFilters(this.searchCriteria.selectedTypes),
+			this.searchCriteria.search,
+			this.searchCriteria.hideNotOwned,
+			this.searchCriteria.hideUnknown
+		);
 	}
-  }
+}

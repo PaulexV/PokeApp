@@ -6,7 +6,7 @@ export interface SearchCriteria {
 	search: string;
 	selectedTypes: string[];
 	hideNotOwned: boolean;
-	hideUnkown: boolean;
+	hideUnknown: boolean;
 }
 
 @Component({
@@ -16,18 +16,22 @@ export interface SearchCriteria {
 	templateUrl: './pokedex-search.component.html',
 	styleUrls: ['./pokedex-search.component.css'],
 })
-
 export class PokedexSearchComponent {
 	@Input() types: Type[] | null = null;
 	@Output() search = new EventEmitter<SearchCriteria>();
 	type_selected = 0;
 	selected_types: string[] = [];
-	isShown = false ;
+	isShown = false;
+	hideNotOwned = false;
+	hideUnknown = false;
 
 	refreshSearch(searchQuerry: string) {
-		this.search.emit({ search: searchQuerry, selectedTypes: this.selected_types, hideNotOwned: false, hideUnkown: false });
-		this.type_selected = 0;
-		this.selected_types = []
+		this.search.emit({
+			search: searchQuerry,
+			selectedTypes: this.selected_types,
+			hideNotOwned: this.hideNotOwned,
+			hideUnknown: this.hideUnknown,
+		});
 	}
 
 	toggleButton(type_name: string) {
@@ -46,10 +50,22 @@ export class PokedexSearchComponent {
 				this.selected_types.splice(index, 1);
 			}
 		}
+		console.log(this.selected_types)
 	}
+
 	toggleShow() {
 		this.type_selected = 0;
-		this.selected_types = []
-		this.isShown = ! this.isShown;
+		this.selected_types = [];
+		this.isShown = !this.isShown;
+		this.hideNotOwned = false;
+		this.hideUnknown = false;
+	}
+
+	toggleNotOwned() {
+		this.hideNotOwned = !this.hideNotOwned
+	}
+
+	toggleUnknown() {
+		this.hideUnknown = !this.hideUnknown
 	}
 }
