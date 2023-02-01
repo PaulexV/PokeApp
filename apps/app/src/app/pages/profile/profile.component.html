@@ -1,2 +1,43 @@
-<p>PROFILE PAGE</p>
+<div class="profile-page">
+	<poke-app-header type="normal"></poke-app-header>
+
+        <P>userName</P>
+        <img class="profilePicture-div" src="../../../assets/pp.png" width="200" height="250" alt="" />
+
+        <div class="description">
+            <p>blablabla</p>
+        </div>
+
+
+
+        <div>
+            <label class="switch">
+                <input type="checkbox">
+                <span class="slider round"></span>
+                <p>Autoriser échange</p>
+            </label>
+        </div>
+    
+        <div>
+            <label class="switch">
+                <input type="checkbox">
+                <span class="slider round"></span>
+                <p>Autoriser les autres joueurs à voir votre activité</p>
+            </label>
+        </div>
+    
+    
+
+        <div id="stats">
+            <p>nombre de pokemon rencontré : XXX</p>
+
+            <p>nombre de pokemon capturé : XXX</p>
+        
+            <p>énergie : XXX</p>
+            
+        </div>
+        
 <button *ngIf="(isLoggedIn$ | async)" (click)="logout()">LOGOUT</button>
+
+    
+</div>
