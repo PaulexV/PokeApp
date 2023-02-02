@@ -1,7 +1,7 @@
 <div class="hunt-page" *ngIf="profile$ | async; let profile">
     <h1>Hunt</h1>
     <div class="pokemon-scene">
-        <img class="pokemon-div" src="../../../assets/pokemon-background.png" alt="" />
+        <img class="pokemon-div" id="pokemon-background" src="../../../assets/background/base.png" alt="" />
         <div *ngIf="huntStarted">
             <img *ngIf="!capturing" class="pokemon" src="{{ currentPkmn?.image }}" alt="" />
             <img *ngIf="capturing && !captured" class="pokeball-animation" src="../../../assets/pokeballs/{{selectedBall}}.png" alt="pokeball"/>
