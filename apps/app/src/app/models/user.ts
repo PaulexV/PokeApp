@@ -3,6 +3,7 @@ import { Timestamp } from "@angular/fire/firestore"
 export interface PokeUser {
     id: string
     name: string
+    description: string
     inventory: {
         pokeball: number, 
         superball: number,

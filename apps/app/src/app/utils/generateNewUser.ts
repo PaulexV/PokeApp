@@ -6,6 +6,7 @@ export function generateNewUser(id: string, name: string): PokeUser {
     return {
       id: id,
       name: name,
+      description: "Je suis fan de Norman fait des vidéos",
       captured: [],
       encountered: [],
       inventory: {

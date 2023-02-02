@@ -1,22 +1,24 @@
-<div class="profile-page">
+<div class="profile-page" *ngIf="user | async; let user">
 	<poke-app-header type="normal"></poke-app-header>
 
-        <div *ngIf="user | async; let user">
-            <div >Nom : {{user.name}}</div>
-        </div>
-        
-        
+            <div>
+                <div>Nom : {{user.name}}</div>
+            </div>
+            
+            
         <div class="description">
             <img class="profilePicture-div" src="../../../assets/pp.png" width="200" height="250" alt="" />
-            <p>blablabla</p>
+            <p>{{user.description}}</p>
         </div>
 
         <div class="changePP">
-            <button>changement de photo</button>
+            <button>changer de photo</button>
         </div>
 
-
-
+        <!-- <div class="changeDescription">
+            <button (click)="onUpdateDescription(f.value)">changer de description</button>
+            <input type="description" #f [value]="description" />
+        </div> -->
 
 
         <div class="info">
@@ -38,7 +40,7 @@
     
     
 
-        <div id="stats" *ngIf="user | async; let user">
+        <div id="stats">
             <p>nombre de pokemon rencontré : {{user.encountered.length}}</p>
 
             <p>nombre de pokemon capturé : {{user.captured.length}}</p>

@@ -5,6 +5,8 @@ import { AuthService } from '../../services/auth.service';
 import { HeaderComponent } from '../../components/header/header.component';
 import { PokeUser } from '../../models/user';
 import { HuntService } from '../hunt/hunt.service';
+// import { profileService } from './profile.service';
+
 
 
 
@@ -17,17 +19,21 @@ import { HuntService } from '../hunt/hunt.service';
 	imports: [HeaderComponent,CommonModule],
 })
 export class ProfileComponent {
+	// description =  "";
 	isLoggedIn$: Observable<boolean> = this.auth.isLoggedIn$;
 	user: Observable<PokeUser | null>
 
+	// onUpdateDescription(value: string): void {
+	// 	this.description = value;
+	// 	// this.profileService.updateDescription(this.user)
+	//   }
+
 	constructor(private readonly auth: AuthService,private readonly huntservice:HuntService) {
 		this.user = this.huntservice.getProfile();
-		console.log(this.user)
+		
 	}
 
 	
-
-
 	logout() {
 		this.auth.signOut()
 	}
