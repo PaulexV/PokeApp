@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faS, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { CommonModule } from '@angular/common';
-import { Type } from '../../model/pokemon';
+import { Type } from '../../../models/pokemon';
 
 export interface SearchCriteria {
 	search: string;
@@ -12,7 +14,7 @@ export interface SearchCriteria {
 @Component({
 	selector: 'poke-app-pokedex-search',
 	standalone: true,
-	imports: [CommonModule],
+	imports: [CommonModule, FontAwesomeModule],
 	templateUrl: './pokedex-search.component.html',
 	styleUrls: ['./pokedex-search.component.css'],
 })
@@ -24,6 +26,7 @@ export class PokedexSearchComponent {
 	isShown = false;
 	hideNotOwned = false;
 	hideUnknown = false;
+	faSearch=faSearch;
 
 	refreshSearch(searchQuerry: string) {
 		this.search.emit({

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
-import { Pokemon } from '../../model/pokemon';
+import { Pokemon } from '../../../models/pokemon';
 
 @Component({
   selector: 'poke-app-pokemon-detail',

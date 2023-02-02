@@ -1,4 +1,4 @@
-import { Pokemon, Type } from '../../model/pokemon';
+import { Pokemon, Type } from '../../../models/pokemon';
 
 export interface PokemonPageModel {
   pokemons: Pokemon[];

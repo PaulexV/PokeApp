@@ -2,7 +2,7 @@
 	<div class="search">
 		<input #searchQuerry type="text" id="searchQuerry" class="searchTerm" placeholder="Rechercher un Pokemon" />
 		<button (click)="refreshSearch(searchQuerry.value)" type="submit" class="searchButton">
-			<i class="fa fa-search"></i>
+			<fa-icon [icon]="faSearch"></fa-icon>
 		</button>
 		<button (click)="toggleShow()" type="checkbox">Filtres</button>
 	</div>

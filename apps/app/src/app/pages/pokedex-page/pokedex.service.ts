@@ -28,7 +28,6 @@ export class PokemonsService {
 		hideNotOwned: boolean,
 		hideUnknown: boolean
 	): Observable<PokemonPageModel> {
-		
 		return this.httpService
 			.get<ApiPokemon[]>(query, {
 				headers: { Accept: 'application/json' },
@@ -41,6 +40,8 @@ export class PokemonsService {
 							name: p.name,
 							image_url: p.image,
 							types: p.apiTypes.map((t) => t.image),
+							captured: this.captured?.includes(parseInt(p.id)),
+							encountered: this.encountered?.includes(parseInt(p.id)),
 						}))
 						.filter((p) =>
 							p.name
@@ -56,8 +57,8 @@ export class PokemonsService {
 										.toLowerCase()
 								)
 						)
-						.filter((p) => this.captured?.includes(parseInt(p.id)) || !hideNotOwned)
-						.filter((p) => this.encountered?.includes(parseInt(p.id)) || !hideUnknown),
+						.filter((p) => p.captured || !hideNotOwned)
+						.filter((p) => p.encountered || !hideUnknown),
 				}))
 			);
 	}

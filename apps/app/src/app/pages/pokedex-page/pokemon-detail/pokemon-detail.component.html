@@ -1,4 +1,4 @@
-<div class="pokemon-div" *ngIf="pokemon">
+<div class="pokemon-div" *ngIf="pokemon" [ngClass]="{'captured': pokemon.captured, 'encountered': pokemon.encountered && !pokemon.captured}">
 	<img class="poke-image" [src]="pokemon.image_url" />
 	<h2>{{ pokemon.name }}</h2>
 	<div class="types">

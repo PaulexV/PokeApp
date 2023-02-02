@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { PokemonPageModel, TypePageModel } from './model/pokedex-page-model';
 import { Observable } from 'rxjs';
 import { PokemonsService } from './pokedex.service';
-import { Pokemon } from '../model/pokemon';
 import { PokemonsListComponent } from './pokemons-list/pokemons-list.component';
 import { PokedexSearchComponent, SearchCriteria } from './pokedex-search/pokedex-search.component';
 

@@ -2,7 +2,6 @@
     display: flex;
     overflow-y: scroll;
     flex-flow: column;
-    width:100vw;
     text-align: left; 
     margin: auto;
 }

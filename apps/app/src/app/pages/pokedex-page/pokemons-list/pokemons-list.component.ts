@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Pokemon } from '../../model/pokemon';
+import { Pokemon } from '../../../models/pokemon';
 import { PokemonDetailComponent } from '../pokemon-detail/pokemon-detail.component';
 import { SearchCriteria } from '../pokedex-search/pokedex-search.component';
 

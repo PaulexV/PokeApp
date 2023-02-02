@@ -11,6 +11,15 @@
   justify-content: center;
   align-items: center;
   flex-flow: column;
+  opacity: 0.5;
+}
+
+.captured {
+  opacity: 1;
+}
+.encountered {
+  opacity: 1;
+  border: 3px white dotted;
 }
 
 .pokemon-div h2 {
