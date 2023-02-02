@@ -61,6 +61,8 @@
   #stats {
     padding: 2px;
     border: 1px solid;
+    border-radius: 25px;
+
 }
 
 #stats a:link {
@@ -70,7 +72,10 @@
     font-family: "footer";
 }
 
-#stats img {
-    width:200px;
-    height:300px;
+.info{
+display: inline-flex;
+  }
+
+.description{
+  display: inline-flex;
 }

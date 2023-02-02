@@ -1,39 +1,49 @@
 <div class="profile-page">
 	<poke-app-header type="normal"></poke-app-header>
 
-        <P>userName</P>
-        <img class="profilePicture-div" src="../../../assets/pp.png" width="200" height="250" alt="" />
-
+        <div *ngIf="user | async; let user">
+            <div >Nom : {{user.name}}</div>
+        </div>
+        
+        
         <div class="description">
+            <img class="profilePicture-div" src="../../../assets/pp.png" width="200" height="250" alt="" />
             <p>blablabla</p>
         </div>
 
+        <div class="changePP">
+            <button>changement de photo</button>
+        </div>
 
 
-        <div>
+
+
+
+        <div class="info">
             <label class="switch">
                 <input type="checkbox">
                 <span class="slider round"></span>
-                <p>Autoriser échange</p>
             </label>
+            <p>Autoriser échange</p>
+
         </div>
-    
-        <div>
+    <br>
+        <div class="info">
             <label class="switch">
                 <input type="checkbox">
                 <span class="slider round"></span>
-                <p>Autoriser les autres joueurs à voir votre activité</p>
             </label>
+            <p>Autoriser les autres joueurs à voir votre activité</p>
         </div>
     
     
 
-        <div id="stats">
-            <p>nombre de pokemon rencontré : XXX</p>
+        <div id="stats" *ngIf="user | async; let user">
+            <p>nombre de pokemon rencontré : {{user.encountered.length}}</p>
 
-            <p>nombre de pokemon capturé : XXX</p>
+            <p>nombre de pokemon capturé : {{user.captured.length}}</p>
         
-            <p>énergie : XXX</p>
+            <p>énergie : {{user.energy}}</p>
             
         </div>
         
