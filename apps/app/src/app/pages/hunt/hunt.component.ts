@@ -36,6 +36,8 @@ export class HuntComponent {
 
 	capturing = false
 	captured = false
+
+	background_url = "../../../assets/background/base.png"
 	
 
 	constructor(private readonly huntService: HuntService) {
@@ -46,9 +48,7 @@ export class HuntComponent {
 	selectRandomBackground() {
 		const backgrounds = ["base", "beach", "forest", "hill", "path", "town"]
 		const background = backgrounds[Math.floor(Math.random()*backgrounds.length)];
-		const path = `../../../assets/background/${background}.png`
-		const background_div = document.getElementById("pokemon-background") as HTMLImageElement
-		background_div.src = path
+		this.background_url = `../../../assets/background/${background}.png`
 	}
 
 	selectBall(selection: 'pokeball' | 'superball' | 'ultraball' | 'masterball') {
