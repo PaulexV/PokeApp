@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { doc, Firestore } from '@angular/fire/firestore';
 import { setDoc } from '@firebase/firestore';
 import { generateNewUser } from '../utils/generateNewUser';
+import { FirebaseError } from '@angular/fire/app';
 
 @Injectable({
 	providedIn: 'root',
@@ -62,4 +63,16 @@ export class AuthService {
 			.pipe(take(1))
 			.subscribe(() => this.router.navigateByUrl('/'));
 	}
+
+  convertErrorMessage(error: FirebaseError): {type: string, message:string} {
+    switch (error.code) {
+      case "auth/user-not-found":
+        return {type: "login", message:"Invalid email adress"}
+      case "auth/wrong-password":
+        return {type: "pwd", message:"Invalid password"}
+      default:
+        return {type:"other", message: error.code.split("/")[1].split("-").join(" ")}
+    }
+    
+  }
 }

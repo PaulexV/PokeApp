@@ -125,7 +125,7 @@ export class HuntComponent {
 
 	updateCooldown() {
 		setInterval(() => {
-			this.profile$.subscribe((user) => {
+			this.profile$.pipe(take(1)).subscribe((user) => {
 				if (user) {
 					(
 						['pokeball', 'superball', 'ultraball', 'masterball'] as (

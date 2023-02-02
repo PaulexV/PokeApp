@@ -27,6 +27,8 @@ import { HeaderComponent } from '../../../components/header/header.component';
   styleUrls: ['./login-page.component.css'],
 })
 export class LoginPageComponent {
+  firebaseError:{[key: string]: string} = {}
+
   loginForm = this.formBuilder.group({
     login: new FormControl<string>('', [Validators.required, Validators.email]),
     password: new FormControl<string>('', Validators.required),
@@ -42,7 +44,8 @@ export class LoginPageComponent {
   ) {}
 
   doLogin() {
+    this.firebaseError = {}
     const { login, password } = this.loginForm.value;
-    this.auth.signIn(login || '', password || '');
+    this.auth.signIn(login || '', password || '', this.firebaseError);
   }
 }

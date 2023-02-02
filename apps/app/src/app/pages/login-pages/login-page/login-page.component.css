@@ -9,3 +9,13 @@ mat-card {
     flex-flow: column;
     align-items: center;
 }
+
+.error-message {
+    width: 100%;
+    color: white;
+    background-color: darkred;
+    padding: 10px;
+    border: 2px solid white;
+    border-radius: 10px;
+    text-align: center;
+}
