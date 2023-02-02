@@ -2,13 +2,25 @@
 <div class="hunt-page" *ngIf="profile$ | async; let profile">
 	<h1>Hunt</h1>
 	<div class="pokemon-scene">
-		<img class="pokemon-div" src="../../../assets/pokemon-background.png" alt="" />
+		<img class="pokemon-div" id="pokemon-background" src="{{ background_url }}" alt="" />
 		<div *ngIf="huntStarted">
-			<img class="pokemon" src="{{ currentPkmn?.image }}" alt="" />
+			<img *ngIf="!capturing" class="pokemon" src="{{ currentPkmn?.image }}" alt="" />
+			<img
+				*ngIf="capturing && !captured"
+				class="pokeball-animation"
+				src="../../../assets/pokeballs/{{ selectedBall }}.png"
+				alt="pokeball"
+			/>
+			<img
+				*ngIf="captured"
+				class="pokemon-captured"
+				src="../../../assets/pokeballs/{{ selectedBall }}.png"
+				alt="pokeball"
+			/>
 		</div>
 	</div>
 	<p class="pokemon-log" *ngIf="huntStarted">
-		Un <strong> {{ currentPkmn?.name }} </strong> sauvage est apparu !
+		{{ pokemonLog }}
 	</p>
 	<div *ngIf="!huntStarted" class="start-hunt-panel">
 		<button mat-raised-button class="btn" (click)="startHunt()" [disabled]="profile.energy === 0">Hunt</button>
@@ -58,8 +70,15 @@
 		<p>Next ball: {{ cooldownTexts[selectedBall] }}</p>
 		<div></div>
 		<div class="btn-panel">
-			<button mat-raised-button class="btn">Capture</button>
-			<button mat-raised-button class="btn" (click)="stopHunt()">Run</button>
+			<button
+				mat-raised-button
+				class="btn"
+				(click)="capture()"
+				[disabled]="capturing || profile.inventory[selectedBall] === 0"
+			>
+				Capture
+			</button>
+			<button mat-raised-button class="btn" (click)="stopHunt()" [disabled]="capturing">Run</button>
 		</div>
 	</div>
 </div>

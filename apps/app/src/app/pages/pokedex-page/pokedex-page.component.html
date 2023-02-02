@@ -1,17 +1,15 @@
 <poke-app-header type="small"></poke-app-header>
-<div *ngIf="types_model$ | async; let types_model">
-	<div class="search">
-		<poke-app-pokedex-search (search)="newSearch($event)" [types]="types_model.types"></poke-app-pokedex-search>
+<div class="container">
+	<div *ngIf="types_model$ | async; let types_model">
+		<div class="search">
+			<poke-app-pokedex-search (search)="newSearch($event)" [types]="types_model.types"></poke-app-pokedex-search>
+		</div>
 	</div>
-</div>
-<div *ngIf="model$ | async; let model">
-	<div id="flex-container">
+	<div *ngIf="model$ | async; let model">
 		<poke-app-pokemons-list
 			class="pokemons-list"
-			(favorite)="setFavoritePokemon($event)"
 			[pokemons]="model.pokemons"
 			[criteria]="searchCriteria"
 		></poke-app-pokemons-list>
 	</div>
-	<div *ngIf="favoritePokemon"></div>
 </div>

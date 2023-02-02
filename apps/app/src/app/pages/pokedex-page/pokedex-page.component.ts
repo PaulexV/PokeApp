@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { PokemonPageModel, TypePageModel } from './model/pokedex-page-model';
 import { Observable } from 'rxjs';
 import { PokemonsService } from './pokedex.service';
-import { Pokemon } from '../model/pokemon';
 import { PokemonsListComponent } from './pokemons-list/pokemons-list.component';
 import { PokedexSearchComponent, SearchCriteria } from './pokedex-search/pokedex-search.component';
 import { HeaderComponent } from '../../components/header/header.component';
@@ -18,16 +17,16 @@ import { HeaderComponent } from '../../components/header/header.component';
 export class PokemonsPageComponent {
 	model$: Observable<PokemonPageModel>;
 	types_model$: Observable<TypePageModel>;
-	favoritePokemon = '';
-	searchCriteria: SearchCriteria = { search: '', selectedTypes: [], hideNotOwned: false, hideUnkown: false };
+	searchCriteria: SearchCriteria = { search: '', selectedTypes: [], hideNotOwned: false, hideUnknown: false };
 
 	constructor(private readonly pokemonsServices: PokemonsService) {
-		this.model$ = pokemonsServices.getPokemonsList(this.buildUrlByFilters([]), this.searchCriteria.search);
+		this.model$ = pokemonsServices.getPokemonsList(
+			this.buildUrlByFilters([]),
+			this.searchCriteria.search,
+			this.searchCriteria.hideNotOwned,
+			this.searchCriteria.hideUnknown
+		);
 		this.types_model$ = pokemonsServices.getTypeList();
-	}
-
-	setFavoritePokemon(pokemon: Pokemon) {
-		this.favoritePokemon = pokemon.name;
 	}
 
 	buildUrlByFilters(filters: string[]): string {
@@ -46,7 +45,9 @@ export class PokemonsPageComponent {
 		this.searchCriteria = criteria;
 		this.model$ = this.pokemonsServices.getPokemonsList(
 			this.buildUrlByFilters(this.searchCriteria.selectedTypes),
-			this.searchCriteria.search
+			this.searchCriteria.search,
+			this.searchCriteria.hideNotOwned,
+			this.searchCriteria.hideUnknown
 		);
 	}
 }
