@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faS, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { CommonModule } from '@angular/common';
 import { Type } from '../../../models/pokemon';
 
@@ -26,7 +26,7 @@ export class PokedexSearchComponent {
 	isShown = false;
 	hideNotOwned = false;
 	hideUnknown = false;
-	faSearch=faSearch;
+	faSearch = faSearch;
 
 	refreshSearch(searchQuerry: string) {
 		this.search.emit({
@@ -53,7 +53,7 @@ export class PokedexSearchComponent {
 				this.selected_types.splice(index, 1);
 			}
 		}
-		console.log(this.selected_types)
+		console.log(this.selected_types);
 	}
 
 	toggleShow() {
@@ -65,10 +65,10 @@ export class PokedexSearchComponent {
 	}
 
 	toggleNotOwned() {
-		this.hideNotOwned = !this.hideNotOwned
+		this.hideNotOwned = !this.hideNotOwned;
 	}
 
 	toggleUnknown() {
-		this.hideUnknown = !this.hideUnknown
+		this.hideUnknown = !this.hideUnknown;
 	}
 }
