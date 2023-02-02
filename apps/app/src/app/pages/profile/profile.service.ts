@@ -35,10 +35,9 @@ import { AuthService } from '../../services/auth.service';
         return docData(profile) as Observable<PokeUser>;
       }
 
-    updateDescription(user: PokeUser){
-        updateDoc(doc(this.firestore,'users', user.id, description),{
-            description: user.description
-
+    updateDescription(user: PokeUser, data: string){
+        updateDoc(doc(this.firestore,'users', user.id),{
+            description: data
         })
     }
 

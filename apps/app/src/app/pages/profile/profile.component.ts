@@ -30,9 +30,7 @@ export class ProfileComponent {
 
 	changeDescription(data: string){
 		this.user.pipe(take(1)).subscribe(user =>{
-			const description = data
-
-			this.profileservice.updateDescription(user,description)
+			this.profileservice.updateDescription(user as PokeUser, data)
 
 		})
 		
