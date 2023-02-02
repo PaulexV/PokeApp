@@ -5,13 +5,14 @@ import { Observable } from 'rxjs';
 import { PokemonsService } from './pokedex.service';
 import { PokemonsListComponent } from './pokemons-list/pokemons-list.component';
 import { PokedexSearchComponent, SearchCriteria } from './pokedex-search/pokedex-search.component';
+import { HeaderComponent } from '../../components/header/header.component';
 
 @Component({
 	selector: 'poke-app-pokedex-page',
 	standalone: true,
-	imports: [CommonModule, PokemonsListComponent, PokedexSearchComponent],
 	templateUrl: './pokedex-page.component.html',
 	styleUrls: ['./pokedex-page.component.css'],
+	imports: [CommonModule, PokemonsListComponent, PokedexSearchComponent, HeaderComponent],
 })
 export class PokemonsPageComponent {
 	model$: Observable<PokemonPageModel>;
