@@ -6,10 +6,13 @@
 }
 
 .log-div {
-  border: solid black 1px;
+  border: 3px solid white;
+  border-radius: 20px;
+  background-color: #5F021F;
+  box-shadow: 0 0 7px 1px black;
   width: 500px;
   height: 100px;
-  margin: 50px;
+  margin: 25px;
   color: white;
   font-size: 16px;
   display: flex;
@@ -21,9 +24,10 @@
 .user-image {
   width: 100px;
   height: 100px;
+  border-radius: 15px 0 0 15px;
 }
 
 .log-message {
-  padding-left: 50px;
+  padding-left: 25px;
   padding-right: 50px;
 }

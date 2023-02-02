@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { addDoc, collection, Firestore, getDocs, limit, orderBy, query } from '@angular/fire/firestore';
+import { collection, Firestore, getDocs, limit, orderBy, query } from '@angular/fire/firestore';
 import { Logs } from '../../models/logs';
 import { HeaderComponent } from '../../components/header/header.component';
 
@@ -12,24 +12,19 @@ import { HeaderComponent } from '../../components/header/header.component';
 	imports: [CommonModule, HeaderComponent],
 })
 export class EventsComponent {
-	toto: Logs = { message: 'toto', id: Math.floor(Math.random() * 50).toString() };
 	logs: Logs[] = [];
 
 	constructor(private readonly firestore: Firestore) {
 		this.getDocsFromLogsCollection();
 	}
 
-	addLog(logs: Logs) {
-		addDoc(collection(this.firestore, 'logs'), logs);
-	}
-
 	async getDocsFromLogsCollection() {
-		const q = query(collection(this.firestore, 'logs'), orderBy('id', 'desc'), limit(15));
+		const q = query(collection(this.firestore, 'logs'), orderBy('timestamp', 'desc'), limit(15));
 		const querySnapshot = await getDocs(q);
 		querySnapshot.forEach((doc) => {
 			// doc.data() is never undefined for query doc snapshots
 			this.logs?.push({
-				id: doc.data()['id'],
+				timestamp: doc.data()['timestamp'],
 				message: doc.data()['message'],
 			});
 		});

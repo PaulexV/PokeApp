@@ -9,6 +9,7 @@ import { EncounteredPokemon } from './models/encounteredPkmn';
 import { cooldownTexts } from './models/cooldownTexts';
 import { formatCooldown, getCooldownSeconds, getTimestampWithAddedSeconds } from '../../utils/timeUtils';
 import { HeaderComponent } from '../../components/header/header.component';
+import { LogService } from '../events/events.service';
 
 @Component({
 	selector: 'poke-app-hunt',
@@ -40,7 +41,7 @@ export class HuntComponent {
 
 	background_url = '../../../assets/background/base.png';
 
-	constructor(private readonly huntService: HuntService) {
+	constructor(private readonly huntService: HuntService, private readonly logService: LogService) {
 		this.profile$ = this.huntService.getProfile();
 		this.updateCooldown();
 	}
@@ -95,6 +96,10 @@ export class HuntComponent {
 			user.inventory[this.selectedBall] -= 1;
 			if (pokemonCaptured) {
 				user.captured.push(this.currentPkmn?.pokedexId as number);
+				this.logService.addLog({
+					timestamp: new Date(),
+					message: `${user.name} captured ${this.currentPkmn?.name}`,
+				});
 			}
 			this.huntService.updateCapture(user);
 		});
