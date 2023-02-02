@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Pokemon } from '../../model/pokemon';
+import { Pokemon } from '../../../models/pokemon';
 import { PokemonDetailComponent } from '../pokemon-detail/pokemon-detail.component';
 import { SearchCriteria } from '../pokedex-search/pokedex-search.component';
 
@@ -14,10 +14,5 @@ import { SearchCriteria } from '../pokedex-search/pokedex-search.component';
 export class PokemonsListComponent {
   @Input() pokemons: Pokemon[] = [];
   @Input() criteria!: SearchCriteria;
-  @Output() favorite = new EventEmitter<Pokemon>();
-
-  setFavoritePokemon($event: Pokemon) {
-    this.favorite.emit($event);
-  }
 
 }
