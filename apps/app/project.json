@@ -11,7 +11,7 @@
         "{options.outputPath}"
       ],
       "options": {
-        "outputPath": "dist/apps/app",
+        "outputPath": "docs",
         "index": "apps/app/src/index.html",
         "main": "apps/app/src/main.ts",
         "polyfills": [

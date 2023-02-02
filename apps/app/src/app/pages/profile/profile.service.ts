@@ -1,7 +1,7 @@
 // import { HttpClient } from '@angular/common/http';
 // import { Injectable } from '@angular/core';
 // import { doc, docData, Firestore, updateDoc } from '@angular/fire/firestore';
-// import { map, Observable, of, switchMap } from 'rxjs';
+// import { Observable, of, switchMap } from 'rxjs';
 // import { PokeUser } from '../../models/user';
 // import { AuthService } from '../../services/auth.service';
 
@@ -35,8 +35,9 @@
 //         return docData(profile) as Observable<PokeUser>;
 //       }
 
-//     updateDescription({user}: PokeUser){
+//     updateDescription(user: PokeUser){
 //         updateDoc(doc(this.firestore,'users', user.id),{
+//             description: user.description
 
 //         })
 //     }

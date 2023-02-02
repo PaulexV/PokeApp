@@ -6,6 +6,9 @@ import { HeaderComponent } from '../../components/header/header.component';
 import { PokeUser } from '../../models/user';
 import { HuntService } from '../hunt/hunt.service';
 // import { profileService } from './profile.service';
+import { doc, docData, Firestore, updateDoc } from '@angular/fire/firestore';
+
+
 
 
 
@@ -19,21 +22,23 @@ import { HuntService } from '../hunt/hunt.service';
 	imports: [HeaderComponent,CommonModule],
 })
 export class ProfileComponent {
-	// description =  "";
+	description =  "";
 	isLoggedIn$: Observable<boolean> = this.auth.isLoggedIn$;
 	user: Observable<PokeUser | null>
 
-	// onUpdateDescription(value: string): void {
-	// 	this.description = value;
-	// 	// this.profileService.updateDescription(this.user)
-	//   }
 
-	constructor(private readonly auth: AuthService,private readonly huntservice:HuntService) {
+
+
+	constructor(private readonly auth: AuthService,private readonly huntservice: HuntService,private readonly profileservice: profileService) {
 		this.user = this.huntservice.getProfile();
 		
 	}
 
-	
+	updateDescription(description: PokeUser){
+		// updateDoc(doc(this.firestore, 'users',user.id)),{
+		// 	description: user.description;
+		// })
+	}
 	logout() {
 		this.auth.signOut()
 	}

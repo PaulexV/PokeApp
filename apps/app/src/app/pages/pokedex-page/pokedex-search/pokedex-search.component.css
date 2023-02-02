@@ -1,17 +1,13 @@
-body {
-	background: #f2f2f2;
-	font-family: 'Open Sans', sans-serif;
-}
-
 .search {
 	width: 100%;
 	position: relative;
 	display: flex;
+	margin-bottom: 10px;
 }
 
 .searchTerm {
 	width: 100%;
-	border: 3px solid #00b4cc;
+	border: 3px solid #5F021F;
 	border-right: none;
 	padding: 5px;
 	height: 20px;
@@ -21,19 +17,19 @@ body {
 }
 
 .searchTerm:focus {
-	color: #00b4cc;
+	color: #5F021F;
 }
 
 .searchButton {
 	width: 40px;
 	height: 36px;
-	border: 1px solid #00b4cc;
-	background: #00b4cc;
+	border: 1px solid #5F021F;
+	background: #5F021F;
 	text-align: center;
 	color: #fff;
 	border-radius: 0 5px 5px 0;
 	cursor: pointer;
-	font-size: 20px;
+	font-size: 18px;
 }
 
 .wrap {
@@ -43,14 +39,21 @@ body {
 
 .filter_list {
 	width: 70%;
-	background-color: #9b6e7c;
+	background-color: #5F021F;
 	flex-direction: column;
 	justify-content: center;
+	align-items: center;
 	margin: auto;
+	color: white;
+	padding: 7px 20px;
+	border: 3px solid white;
+  	border-radius: 20px;
+	text-align: center;
 }
 
 .type-selected {
 	background-color: gray;
+	border: 1px black solid;
 }
 
 /* The switch - the box around the slider */
@@ -79,6 +82,9 @@ body {
 	background-color: #ccc;
 	-webkit-transition: 0.4s;
 	transition: 0.4s;
+	width: 60px;
+	height: 34px;
+	border: 1px white solid;
 }
 
 .slider:before {
@@ -94,11 +100,11 @@ body {
 }
 
 input:checked + .slider {
-	background-color: #2196f3;
+	background-color: rgba(127, 74, 87);
 }
 
 input:focus + .slider {
-	box-shadow: 0 0 1px #2196f3;
+	box-shadow: 0 0 1px rgba(127, 74, 87);
 }
 
 input:checked + .slider:before {
@@ -117,15 +123,15 @@ input:checked + .slider:before {
 }
 
 .switch {
-	margin: auto;
+	margin: 5px;
 }
 
 .type_container {
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: space-around;
+	justify-content: center;
 	overflow: scroll;
-	height: 20rem;
+	max-height: 25rem;
 }
 
 .type_image {
@@ -133,15 +139,20 @@ input:checked + .slider:before {
 }
 
 .type-selected, .type-unselected {
-	width: 20rem;
+	width: 10rem;
 }
 
 
 .encounteredfilter{
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
+	flex-wrap: wrap;
 }
 
 .switch_filter {
-	width: 50%;
+	margin: 5px;
+	width: 100%;
+	justify-content: center;
+	display: flex;
+	align-items: center;
 }

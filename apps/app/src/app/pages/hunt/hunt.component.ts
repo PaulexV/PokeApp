@@ -37,9 +37,18 @@ export class HuntComponent {
 	capturing = false
 	captured = false
 
+	background_url = "../../../assets/background/base.png"
+	
+
 	constructor(private readonly huntService: HuntService) {
 		this.profile$ = this.huntService.getProfile();
 		this.updateCooldown()
+	}
+
+	selectRandomBackground() {
+		const backgrounds = ["base", "beach", "forest", "hill", "path", "town"]
+		const background = backgrounds[Math.floor(Math.random()*backgrounds.length)];
+		this.background_url = `../../../assets/background/${background}.png`
 	}
 
 	selectBall(selection: 'pokeball' | 'superball' | 'ultraball' | 'masterball') {
@@ -70,6 +79,7 @@ export class HuntComponent {
 		this.currentPkmn = undefined;
 		this.capturing = false
 		this.captured = false
+		this.selectRandomBackground()
 	}
 
 	capture() {

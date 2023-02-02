@@ -22,4 +22,5 @@
   flex-flow: column;
   align-items: center;
   padding: 10px;
+  overflow: scroll;
 }

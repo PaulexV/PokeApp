@@ -3,6 +3,8 @@ export interface Pokemon {
   name: string;
   image_url: string;
   types: string[];
+  encountered: boolean;
+  captured: boolean;
 }
 
 export interface Type {
