@@ -8,10 +8,10 @@
           <form [formGroup]="loginForm" (ngSubmit)="doLogin()">
             <div>
               <mat-form-field>
-                <mat-label>Login</mat-label>
+                <mat-label>Email</mat-label>
                 <input matInput formControlName="login">
-                <mat-error *ngIf="login?.errors?.['email']">Login must be an email</mat-error>
-                <mat-error *ngIf="login?.errors?.['required']">Login is required</mat-error>
+                <mat-error *ngIf="login?.errors?.['email']">Field must be an email</mat-error>
+                <mat-error *ngIf="login?.errors?.['required']">Email is required</mat-error>
               </mat-form-field>
             </div>
             <div>
@@ -29,5 +29,6 @@
         </mat-card-content>
       </mat-card>
     </div>
+    <p class="error-message" *ngIf="firebaseError['message']">{{firebaseError['message']}}</p>
   </div>
   

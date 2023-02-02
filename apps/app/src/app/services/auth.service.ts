@@ -15,6 +15,7 @@ import { collection, setDoc, Timestamp } from '@firebase/firestore';
 import { PokeUser } from '../models/user';
 import { ballsStats } from '../pages/hunt/models/pokeball';
 import { generateNewUser } from '../utils/generateNewUser';
+import { FirebaseError } from '@angular/fire/app';
 
 @Injectable({
   providedIn: 'root',
@@ -28,11 +29,12 @@ export class AuthService {
 
   constructor(private readonly auth: Auth, private router: Router, private readonly firestore: Firestore) {}
 
-  signIn(email: string, password: string) {
+  signIn(email: string, password: string, firebaseError: {[key: string]: string}) {
     from(signInWithEmailAndPassword(this.auth, email, password))
       .pipe(
-        catchError(() => {
-          this.displayFailedPopup();
+        catchError((err) => {
+          const error = this.convertErrorMessage(err);
+          firebaseError['message'] = error.message
           return NEVER;
         }),
         take(1)
@@ -46,8 +48,6 @@ export class AuthService {
     from(createUserWithEmailAndPassword(this.auth, email, password))
       .pipe(
         catchError((err) => {
-          console.log(err);
-          this.displayFailedPopup();
           return NEVER;
         }),
         take(1)
@@ -58,14 +58,21 @@ export class AuthService {
       });
   }
 
-  private displayFailedPopup() {
-    console.log('Login failed');
-    return;
-  }
-
   signOut() {
     from(signOut(this.auth))
       .pipe(take(1))
       .subscribe(() => this.router.navigateByUrl('/'));
+  }
+
+  convertErrorMessage(error: FirebaseError): {type: string, message:string} {
+    switch (error.code) {
+      case "auth/user-not-found":
+        return {type: "login", message:"Invalid email adress"}
+      case "auth/wrong-password":
+        return {type: "pwd", message:"Invalid password"}
+      default:
+        return {type:"other", message: error.code.split("/")[1].split("-").join(" ")}
+    }
+    
   }
 }
