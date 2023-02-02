@@ -1,15 +1,11 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Observable } from 'rxjs';
+import { Observable, take } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { HeaderComponent } from '../../components/header/header.component';
 import { PokeUser } from '../../models/user';
 import { HuntService } from '../hunt/hunt.service';
-// import { profileService } from './profile.service';
-import { doc, docData, Firestore, updateDoc } from '@angular/fire/firestore';
-
-
-
+import { ProfileService } from './profile.service';
 
 
 
@@ -26,18 +22,20 @@ export class ProfileComponent {
 	isLoggedIn$: Observable<boolean> = this.auth.isLoggedIn$;
 	user: Observable<PokeUser | null>
 
+	constructor(private readonly auth: AuthService,private readonly huntservice: HuntService,private readonly profileservice: ProfileService) {
 
-
-
-	constructor(private readonly auth: AuthService,private readonly huntservice: HuntService,private readonly profileservice: profileService) {
 		this.user = this.huntservice.getProfile();
 		
 	}
 
-	updateDescription(description: PokeUser){
-		// updateDoc(doc(this.firestore, 'users',user.id)),{
-		// 	description: user.description;
-		// })
+	changeDescription(data: string){
+		this.user.pipe(take(1)).subscribe(user =>{
+			const description = data
+
+			this.profileservice.updateDescription(user,description)
+
+		})
+		
 	}
 	logout() {
 		this.auth.signOut()
