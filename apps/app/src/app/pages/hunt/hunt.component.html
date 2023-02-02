@@ -1,50 +1,65 @@
+<poke-app-header type="small"></poke-app-header>
 <div class="hunt-page" *ngIf="profile$ | async; let profile">
-    <h1>Hunt</h1>
-    <div class="pokemon-scene">
-        <img class="pokemon-div" src="../../../assets/pokemon-background.png" alt="" />
-        <div *ngIf="huntStarted">
-            <img class="pokemon" src="{{ currentPkmn?.image }}" alt="" />
-        </div>
-    </div>
-    <p class="pokemon-log" *ngIf="huntStarted">
-        Un <strong> {{ currentPkmn?.name }} </strong> sauvage est apparu !
-    </p>
-    <div *ngIf="!huntStarted" class="start-hunt-panel">
-        <button mat-raised-button class="btn" (click)="startHunt()" [disabled]="profile.energy === 0">Hunt</button>
-        <div class="energy">
-            <img src="../../../assets/lightning.png" alt="" />
-            <span>{{ profile.energy }} / 10
-				<span *ngIf="profile.energy !== 10">, next in {{ cooldownTexts.energy }}</span></span>
-        </div>
-    </div>
-    <div *ngIf="huntStarted" class="hunt-panel">
-        <h2>Select ball to launch :</h2>
-        <div class="balls">
-            <div id="pokeball" (click)="selectBall('pokeball')" [ngClass]="{ selected: selectedBall === 'pokeball' }">
-                <img src="../../../assets/pokeballs/pokeball.png" alt="pokeball" />
-                <span>{{ profile.inventory.pokeball }}</span>
-            </div>
-            <div id="superball" (click)="selectBall('superball')" [ngClass]="{ selected: selectedBall === 'superball' }">
-                <img src="../../../assets/pokeballs/superball.png" alt="superball" />
-                <span>{{ profile.inventory.superball }}</span>
-            </div>
-            <div id="ultraball" (click)="selectBall('ultraball')" [ngClass]="{ selected: selectedBall === 'ultraball' }">
-                <img src="../../../assets/pokeballs/ultraball.png" alt="ultraball" />
-                <span>{{ profile.inventory.ultraball }}</span>
-            </div>
-            <div id="masterball" (click)="selectBall('masterball')" [ngClass]="{ selected: selectedBall === 'masterball' }">
-                <img src="../../../assets/pokeballs/masterball.png" alt="masterball" />
-                <span>{{ profile.inventory.masterball }}</span>
-            </div>
-        </div>
-        <p>
-            Catchrate: <b>{{ ballsStats[selectedBall].catchrate }}%</b>
-        </p>
-        <p>Next ball: {{ cooldownTexts[selectedBall] }}</p>
-        <div></div>
-        <div class="btn-panel">
-            <button mat-raised-button class="btn">Capture</button>
-            <button mat-raised-button class="btn" (click)="stopHunt()">Run</button>
-        </div>
-    </div>
+	<h1>Hunt</h1>
+	<div class="pokemon-scene">
+		<img class="pokemon-div" src="../../../assets/pokemon-background.png" alt="" />
+		<div *ngIf="huntStarted">
+			<img class="pokemon" src="{{ currentPkmn?.image }}" alt="" />
+		</div>
+	</div>
+	<p class="pokemon-log" *ngIf="huntStarted">
+		Un <strong> {{ currentPkmn?.name }} </strong> sauvage est apparu !
+	</p>
+	<div *ngIf="!huntStarted" class="start-hunt-panel">
+		<button mat-raised-button class="btn" (click)="startHunt()" [disabled]="profile.energy === 0">Hunt</button>
+		<div class="energy">
+			<img src="../../../assets/lightning.png" alt="" />
+			<span
+				>{{ profile.energy }} / 10
+				<span *ngIf="profile.energy !== 10">, next in {{ cooldownTexts.energy }}</span></span
+			>
+		</div>
+	</div>
+	<div *ngIf="huntStarted" class="hunt-panel">
+		<h2>Select ball to launch :</h2>
+		<div class="balls">
+			<div id="pokeball" (click)="selectBall('pokeball')" [ngClass]="{ selected: selectedBall === 'pokeball' }">
+				<img src="../../../assets/pokeballs/pokeball.png" alt="pokeball" />
+				<span>{{ profile.inventory.pokeball }}</span>
+			</div>
+			<div
+				id="superball"
+				(click)="selectBall('superball')"
+				[ngClass]="{ selected: selectedBall === 'superball' }"
+			>
+				<img src="../../../assets/pokeballs/superball.png" alt="superball" />
+				<span>{{ profile.inventory.superball }}</span>
+			</div>
+			<div
+				id="ultraball"
+				(click)="selectBall('ultraball')"
+				[ngClass]="{ selected: selectedBall === 'ultraball' }"
+			>
+				<img src="../../../assets/pokeballs/ultraball.png" alt="ultraball" />
+				<span>{{ profile.inventory.ultraball }}</span>
+			</div>
+			<div
+				id="masterball"
+				(click)="selectBall('masterball')"
+				[ngClass]="{ selected: selectedBall === 'masterball' }"
+			>
+				<img src="../../../assets/pokeballs/masterball.png" alt="masterball" />
+				<span>{{ profile.inventory.masterball }}</span>
+			</div>
+		</div>
+		<p>
+			Catchrate: <b>{{ ballsStats[selectedBall].catchrate }}%</b>
+		</p>
+		<p>Next ball: {{ cooldownTexts[selectedBall] }}</p>
+		<div></div>
+		<div class="btn-panel">
+			<button mat-raised-button class="btn">Capture</button>
+			<button mat-raised-button class="btn" (click)="stopHunt()">Run</button>
+		</div>
+	</div>
 </div>

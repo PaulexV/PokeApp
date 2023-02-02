@@ -8,24 +8,25 @@ import { PokeUser } from '../../models/user';
 import { EncounteredPokemon } from './models/encounteredPkmn';
 import { cooldownTexts } from './models/cooldownTexts';
 import { formatCooldown, getCooldownSeconds, getTimestampWithAddedSeconds } from '../../utils/timeUtils';
+import { HeaderComponent } from '../../components/header/header.component';
 
 @Component({
 	selector: 'poke-app-hunt',
 	standalone: true,
-	imports: [CommonModule, MatButtonModule],
 	templateUrl: './hunt.component.html',
 	styleUrls: ['./hunt.component.css'],
+	imports: [CommonModule, MatButtonModule, HeaderComponent],
 })
 export class HuntComponent {
-	huntStarted = false
-	ballsStats = ballsStats
+	huntStarted = false;
+	ballsStats = ballsStats;
 	cooldownTexts: cooldownTexts = {
-		pokeball: "",
-		superball: "",
-		ultraball: "",
-		masterball: "",
-		energy: ""
-	}
+		pokeball: '',
+		superball: '',
+		ultraball: '',
+		masterball: '',
+		energy: '',
+	};
 
 	selectedBall: 'pokeball' | 'superball' | 'ultraball' | 'masterball' = 'pokeball';
 
@@ -34,7 +35,7 @@ export class HuntComponent {
 
 	constructor(private readonly huntService: HuntService) {
 		this.profile$ = this.huntService.getProfile();
-		this.updateCooldown()
+		this.updateCooldown();
 	}
 
 	selectBall(selection: 'pokeball' | 'superball' | 'ultraball' | 'masterball') {
@@ -42,22 +43,22 @@ export class HuntComponent {
 	}
 
 	startHunt() {
-		this.profile$.pipe(take(1)).subscribe(user => {
-			if (!user) return
+		this.profile$.pipe(take(1)).subscribe((user) => {
+			if (!user) return;
 			if (user.energy >= 1) {
-				this.huntStarted = true
+				this.huntStarted = true;
 				const randomPkmn = this.huntService.getRandomPokemon();
 				randomPkmn.subscribe((val) => {
 					this.currentPkmn = val;
 				});
 
-				if (user.energy === 10) { user.cooldown.energy = getTimestampWithAddedSeconds(5 * 60) }
-				user.energy -= 1
-				this.huntService.updateEnergy(user)
+				if (user.energy === 10) {
+					user.cooldown.energy = getTimestampWithAddedSeconds(5 * 60);
+				}
+				user.energy -= 1;
+				this.huntService.updateEnergy(user);
 			}
-		})
-
-		
+		});
 	}
 
 	stopHunt() {
@@ -66,36 +67,41 @@ export class HuntComponent {
 	}
 
 	updateCooldown() {
-		setInterval(()=> {
-			this.profile$.subscribe(user => {
+		setInterval(() => {
+			this.profile$.subscribe((user) => {
 				if (user) {
-					(["pokeball", "superball", "ultraball", "masterball"] as ("pokeball" | "superball" | "ultraball" | "masterball")[])
-					.forEach(b => {
-						let interval = getCooldownSeconds(user.cooldown[b])
+					(
+						['pokeball', 'superball', 'ultraball', 'masterball'] as (
+							| 'pokeball'
+							| 'superball'
+							| 'ultraball'
+							| 'masterball'
+						)[]
+					).forEach((b) => {
+						let interval = getCooldownSeconds(user.cooldown[b]);
 						if (interval < 0) {
 							while (interval < 0) {
-								interval += this.ballsStats[b].cooldown * 60
-								user.inventory[b] += 1
+								interval += this.ballsStats[b].cooldown * 60;
+								user.inventory[b] += 1;
 							}
-							user.cooldown[b] = getTimestampWithAddedSeconds(interval)
-							this.huntService.updatePokeballsAndCooldowns(user)
+							user.cooldown[b] = getTimestampWithAddedSeconds(interval);
+							this.huntService.updatePokeballsAndCooldowns(user);
 						}
-						this.cooldownTexts[b] = formatCooldown(interval)
-					})
+						this.cooldownTexts[b] = formatCooldown(interval);
+					});
 
-					let interval = getCooldownSeconds(user.cooldown.energy)
+					let interval = getCooldownSeconds(user.cooldown.energy);
 					if (interval < 0) {
-						while(interval < 0) {
-							interval += 5*60
-							if (user.energy < 10) user.energy += 1
+						while (interval < 0) {
+							interval += 5 * 60;
+							if (user.energy < 10) user.energy += 1;
 						}
-						user.cooldown.energy = getTimestampWithAddedSeconds(interval)
-						this.huntService.updateEnergy(user)
+						user.cooldown.energy = getTimestampWithAddedSeconds(interval);
+						this.huntService.updateEnergy(user);
 					}
-					this.cooldownTexts.energy = formatCooldown(interval)
-					
+					this.cooldownTexts.energy = formatCooldown(interval);
 				}
-			})
-		}, 1000)
+			});
+		}, 1000);
 	}
 }

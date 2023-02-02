@@ -1,3 +1,4 @@
+<poke-app-header type="small"></poke-app-header>
 <div *ngIf="types_model$ | async; let types_model">
 	<div class="search">
 		<poke-app-pokedex-search (search)="newSearch($event)" [types]="types_model.types"></poke-app-pokedex-search>
