@@ -23,11 +23,12 @@ export class AuthService {
 
 	constructor(private readonly auth: Auth, private router: Router, private readonly firestore: Firestore) {}
 
-	signIn(email: string, password: string) {
+	signIn(email: string, password: string, firebaseError: {[key: string]: string}) {
 		from(signInWithEmailAndPassword(this.auth, email, password))
 			.pipe(
-				catchError(() => {
-					this.displayFailedPopup();
+				catchError((err) => {
+					const error = this.convertErrorMessage(err)
+					firebaseError['message'] = error.message
 					return NEVER;
 				}),
 				take(1)
@@ -42,7 +43,6 @@ export class AuthService {
 			.pipe(
 				catchError((err) => {
 					console.log(err);
-					this.displayFailedPopup();
 					return NEVER;
 				}),
 				take(1)
@@ -53,10 +53,7 @@ export class AuthService {
 			});
 	}
 
-	private displayFailedPopup() {
-		console.log('Login failed');
-		return;
-	}
+
 
 	signOut() {
 		from(signOut(this.auth))
