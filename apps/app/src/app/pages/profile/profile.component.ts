@@ -21,17 +21,11 @@ export class ProfileComponent implements OnInit {
 
 	stream: MediaStream | undefined;
 
-	@ViewChild('video')
-	video: ElementRef | undefined;
-
 	@ViewChild('canvas')
 	canvas: ElementRef | undefined;
 
-	captures: Array<any> | undefined;
-
 	public ngOnInit() {
 		navigator.mediaDevices.getUserMedia({ video: { width: 200, height: 200 } }).then((stream) => {
-			console.log('> stream', stream);
 			this.stream = stream;
 		});
 	}
