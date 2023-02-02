@@ -9,7 +9,7 @@
 </div>
 
 <div *ngIf="isShown" class="filter_list">
-	<h2>Choisissez les types ( 2 maximum )</h2>
+	<h2>Choisissez les types (2 maximum)</h2>
 	<div class="type_container">
 		<div *ngFor="let type of types">
 			<button id="type{{ type.name }}" (click)="toggleButton(type.name)" class="type-unselected">
@@ -19,13 +19,18 @@
 		</div>
 	</div>
 	<div class="encounteredfilter">
-		<div class="hide_known switch_filter">Cacher les Pokemon non capturé
+		<div class="hide_known switch_filter">
+			<span>
+				Pokemons capturés uniquement
+			</span>
 			<label class="switch">
 				<input type="checkbox" (click)="toggleNotOwned()" />
 				<span class="slider round"></span>
 			</label>
 		</div>
-		<div class="hide_unknown switch_filter">Cachez les Pokemon non rencontré
+		<div class="hide_unknown switch_filter">
+			<span>Pokemons rencontrés uniquement
+			</span>
 			<label class="switch">
 				<input type="checkbox" (click)="toggleUnknown()" />
 				<span class="slider round"></span>

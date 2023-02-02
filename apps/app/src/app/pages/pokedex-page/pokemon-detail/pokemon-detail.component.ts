@@ -12,10 +12,4 @@ import { Pokemon } from '../../model/pokemon';
 })
 export class PokemonDetailComponent {
   @Input() pokemon: Pokemon | null = null;
-  @Output() isFavorite = new EventEmitter<Pokemon>();
-
-  setFavorite() {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    this.isFavorite.emit(this.pokemon!);
-  }
 }

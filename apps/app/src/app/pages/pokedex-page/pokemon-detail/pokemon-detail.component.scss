@@ -1,28 +1,31 @@
-.pokemon-detail {
-  padding: 2rem;
+.pokemon-div {
+  height: 90%;
+  width: calc(100% - 20px);
+  border: 3px solid white;
+  border-radius: 20px;
+  color: white;
+  background-color: #5F021F;
+  box-shadow: 0 0 10px 2px black;
+
   display: flex;
-  align-content: stretch;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column;
 }
 
-.flex-container {
-    display: flex;
-    flex-direction: row;
-  }
-  
-.flex-container > div {
-    background-color: grey;
+.pokemon-div h2 {
+  margin:3px;
 }
 
-.card {
+.poke-image {
+  height: 40%;
+}
+
+.types {
   display: flex;
+  justify-content: center;
 }
 
-.poke_image {
-  width: 40%;
-  height: 40%
-}
-
-.container {
-  width: 100%;
+.types img {
+  width: 30%;
 }

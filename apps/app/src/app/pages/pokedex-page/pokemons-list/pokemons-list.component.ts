@@ -14,10 +14,5 @@ import { SearchCriteria } from '../pokedex-search/pokedex-search.component';
 export class PokemonsListComponent {
   @Input() pokemons: Pokemon[] = [];
   @Input() criteria!: SearchCriteria;
-  @Output() favorite = new EventEmitter<Pokemon>();
-
-  setFavoritePokemon($event: Pokemon) {
-    this.favorite.emit($event);
-  }
 
 }

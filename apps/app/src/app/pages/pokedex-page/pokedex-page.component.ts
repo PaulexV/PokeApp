@@ -17,7 +17,6 @@ import { PokedexSearchComponent, SearchCriteria } from './pokedex-search/pokedex
 export class PokemonsPageComponent {
 	model$: Observable<PokemonPageModel>;
 	types_model$: Observable<TypePageModel>;
-	favoritePokemon = '';
 	searchCriteria: SearchCriteria = { search: '', selectedTypes: [], hideNotOwned: false, hideUnknown: false };
 
 	constructor(private readonly pokemonsServices: PokemonsService) {
@@ -28,10 +27,6 @@ export class PokemonsPageComponent {
 			this.searchCriteria.hideUnknown
 		);
 		this.types_model$ = pokemonsServices.getTypeList();
-	}
-
-	setFavoritePokemon(pokemon: Pokemon) {
-		this.favoritePokemon = pokemon.name;
 	}
 
 	buildUrlByFilters(filters: string[]): string {
