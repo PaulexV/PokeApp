@@ -3,6 +3,7 @@
   flex-direction: column;
   overflow: scroll;
   height: 100%;
+  margin-top: 20px;
 }
 
 .log-div {
@@ -10,9 +11,8 @@
   border-radius: 20px;
   background-color: #5F021F;
   box-shadow: 0 0 7px 1px black;
-  width: 500px;
   height: 100px;
-  margin: 25px;
+  margin: 10px;
   color: white;
   font-size: 16px;
   display: flex;
