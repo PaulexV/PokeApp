@@ -1,2 +1,53 @@
-<p>PROFILE PAGE</p>
-<button *ngIf="(isLoggedIn$ | async)" (click)="logout()">LOGOUT</button>
+<div class="profile-page" *ngIf="user$ | async; let user">
+	<poke-app-header type="normal"></poke-app-header>
+
+	<div *ngIf="camera_on">
+		<div><video id="stream" *ngIf="stream" [srcObject]="stream" autoplay></video></div>
+		<div><button id="snap" (click)="capture()">Snap Photo</button></div>
+		<canvas #canvas id="canvas" width="200" height="200" style="display: none"></canvas>
+	</div>
+
+	<div>
+		<div>Nom : {{ user.name }}</div>
+	</div>
+
+	<div class="description">
+		<img class="profilePicture-div" #filePreview src={{profile_picture}} width="200" height="250" alt="" />
+		<p>{{ user.description }}</p>
+	</div>
+
+	<div class="changePP">
+		<button (click)="toggleCamera()">changer de photo</button>
+	</div>
+
+	<div class="changeDescription">
+		<button (click)="changeDescription(f.value)">changer de description</button>
+		<input type="description" #f [value]="description" />
+	</div>
+
+	<div class="info">
+		<label class="switch">
+			<input type="checkbox" />
+			<span class="slider round"></span>
+		</label>
+		<p>Autoriser échange</p>
+	</div>
+	<br />
+	<div class="info">
+		<label class="switch">
+			<input type="checkbox" />
+			<span class="slider round"></span>
+		</label>
+		<p>Autoriser les autres joueurs à voir votre activité</p>
+	</div>
+
+	<div id="stats">
+		<p>nombre de pokemon rencontré : {{ user.encountered.length }}</p>
+
+		<p>nombre de pokemon capturé : {{ user.captured.length }}</p>
+
+		<p>énergie : {{ user.energy }}</p>
+	</div>
+
+	<button *ngIf="isLoggedIn$ | async" (click)="logout()">LOGOUT</button>
+</div>
