@@ -3,51 +3,35 @@
 
 	<div *ngIf="camera_on">
 		<div><video id="stream" *ngIf="stream" [srcObject]="stream" autoplay></video></div>
-		<div><button id="snap" (click)="capture()">Snap Photo</button></div>
+		<div class="center"><button mat-raised-button class="btn" id="snap" (click)="capture()">Prendre la photo</button></div>
 		<canvas #canvas id="canvas" width="200" height="200" style="display: none"></canvas>
 	</div>
 
-	<div>
-		<div>Nom : {{ user.name }}</div>
-	</div>
-
 	<div class="description">
-		<img class="profilePicture-div" #filePreview src={{profile_picture}} width="200" height="250" alt="" />
-		<p>{{ user.description }}</p>
+		<img class="profilePicture-div" #filePreview src="{{ profile_picture }}" width="200" height="250" alt="" />
 	</div>
-
-	<div class="changePP">
-		<button (click)="toggleCamera()">changer de photo</button>
-	</div>
-
-	<div class="changeDescription">
-		<button (click)="changeDescription(f.value)">changer de description</button>
-		<input type="description" #f [value]="description" />
-	</div>
-
+	<p><b>Description</b> : {{ user.description }}</p>
 	<div class="info">
-		<label class="switch">
-			<input type="checkbox" />
-			<span class="slider round"></span>
-		</label>
-		<p>Autoriser échange</p>
+		<div>
+			<div><b>Nom</b> : {{ user.name }}</div>
+		</div>
 	</div>
-	<br />
-	<div class="info">
-		<label class="switch">
-			<input type="checkbox" />
-			<span class="slider round"></span>
-		</label>
-		<p>Autoriser les autres joueurs à voir votre activité</p>
-	</div>
+		<div class="changePP center">
+			<button mat-raised-button class="btn" (click)="toggleCamera()">Changer de photo</button>
+		</div>
+
+		<div class="changeDescription">
+			<input type="description" #f [value]="description" placeholder="Rentrer votre nouvelle description" />
+			<div class="center"><button mat-raised-button class="btn" (click)="changeDescription(f.value)">Changer de description</button></div>
+		</div>
 
 	<div id="stats">
-		<p>nombre de pokemon rencontré : {{ user.encountered.length }}</p>
+		<p>Nombre de pokemon rencontré : {{ user.encountered.length }}</p>
 
-		<p>nombre de pokemon capturé : {{ user.captured.length }}</p>
+		<p>Nombre de pokemon capturé : {{ user.captured.length }}</p>
 
-		<p>énergie : {{ user.energy }}</p>
+		<p>Energie : {{ user.energy }}</p>
 	</div>
 
-	<button *ngIf="isLoggedIn$ | async" (click)="logout()">LOGOUT</button>
+	<button mat-raised-button class="btn" *ngIf="isLoggedIn$ | async" (click)="logout()">Se déconnecter</button>
 </div>
