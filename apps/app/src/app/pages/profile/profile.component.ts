@@ -75,7 +75,6 @@ export class ProfileComponent implements OnInit {
 
 	updateProfilePicture(){
 		this.user$.pipe(take(1)).subscribe((user) => {
-<<<<<<< HEAD
 			const url = `https://firebasestorage.googleapis.com/v0/b/poke-app-bf936.appspot.com/o/${user?.id}.png?alt=media&t=${new Date().getTime()}`
 			const link = this.getImageOrFallback(
 					url, "../../../assets/pp.png"
@@ -93,12 +92,6 @@ export class ProfileComponent implements OnInit {
 		});
 	  };
 	
-=======
-			this.profile_picture = `https://firebasestorage.googleapis.com/v0/b/poke-app-bf936.appspot.com/o/${user?.id}.png?alt=media&t=${new Date().getTime()}`
-		})
-	}
-
->>>>>>> origin/main
 	toggleCamera() {
 		this.camera_on = !this.camera_on
 	}
