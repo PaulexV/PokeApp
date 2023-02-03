@@ -21,9 +21,13 @@ export class ProfileComponent implements OnInit {
 	user$: Observable<PokeUser | null>;
 
 	stream: MediaStream | undefined;
+	camera_on = false
 
 	@ViewChild('canvas')
 	canvas: ElementRef | undefined;
+
+	@ViewChild('filePreview')
+	private filePreview!: ElementRef;
 
 	profile_picture = "../../../assets/pp.png"
 
@@ -37,7 +41,6 @@ export class ProfileComponent implements OnInit {
 		const video = document.querySelector('video');
 		this.canvas?.nativeElement.getContext('2d').drawImage(video, 0, 0, 200, 200);
 		const B64IMG = this.canvas?.nativeElement.toDataURL('image/png');
-		console.log(B64IMG);
 
 		fetch(B64IMG)
 			.then((res) => res.blob())
@@ -47,8 +50,8 @@ export class ProfileComponent implements OnInit {
 					const file = new File([blob], filename, { type: 'image/png' });
 
 					const fileDetails = ref(this.storage, filename);
-					uploadBytes(fileDetails, file).then((snap) => {
-						console.log(snap);
+					uploadBytes(fileDetails, file).then(() => {
+						this.updateProfilePicture()
 					});
 				});
 			});
@@ -72,8 +75,12 @@ export class ProfileComponent implements OnInit {
 
 	updateProfilePicture(){
 		this.user$.pipe(take(1)).subscribe((user) => {
-			this.profile_picture = `https://firebasestorage.googleapis.com/v0/b/poke-app-bf936.appspot.com/o/${user?.id}.png?alt=media`
+			this.profile_picture = `https://firebasestorage.googleapis.com/v0/b/poke-app-bf936.appspot.com/o/${user?.id}.png?alt=media&t=${new Date().getTime()}`
 		})
+	}
+
+	toggleCamera() {
+		this.camera_on = !this.camera_on
 	}
 
 	logout() {
