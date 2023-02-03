@@ -99,6 +99,9 @@ export class HuntComponent {
 				this.logService.addLog({
 					timestamp: new Date(),
 					message: `${user.name} captured ${this.currentPkmn?.name}`,
+					profilePic: `https://firebasestorage.googleapis.com/v0/b/poke-app-bf936.appspot.com/o/${
+						user?.id
+					}.png?alt=media&t=${new Date().getTime()}`,
 				});
 			}
 			this.huntService.updateCapture(user);
