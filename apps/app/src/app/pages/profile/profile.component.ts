@@ -6,7 +6,7 @@ import { HeaderComponent } from '../../components/header/header.component';
 import { PokeUser } from '../../models/user';
 import { HuntService } from '../hunt/hunt.service';
 import { ProfileService } from './profile.service';
-import { getDownloadURL, ref, Storage, uploadBytes } from '@angular/fire/storage';
+import { ref, Storage, uploadBytes } from '@angular/fire/storage';
 
 @Component({
 	selector: 'poke-app-profile',
@@ -75,10 +75,30 @@ export class ProfileComponent implements OnInit {
 
 	updateProfilePicture(){
 		this.user$.pipe(take(1)).subscribe((user) => {
+<<<<<<< HEAD
+			const url = `https://firebasestorage.googleapis.com/v0/b/poke-app-bf936.appspot.com/o/${user?.id}.png?alt=media&t=${new Date().getTime()}`
+			const link = this.getImageOrFallback(
+					url, "../../../assets/pp.png"
+				).then(result => this.profile_picture = result as string)
+			this.profile_picture = url
+		})
+	}
+
+	getImageOrFallback(path: string, fallback: string){
+		return new Promise(resolve => {
+		  const img = new Image();
+		  img.src = path;
+		  img.onload = () => resolve(path);
+		  img.onerror = () => resolve(fallback);
+		});
+	  };
+	
+=======
 			this.profile_picture = `https://firebasestorage.googleapis.com/v0/b/poke-app-bf936.appspot.com/o/${user?.id}.png?alt=media&t=${new Date().getTime()}`
 		})
 	}
 
+>>>>>>> origin/main
 	toggleCamera() {
 		this.camera_on = !this.camera_on
 	}
