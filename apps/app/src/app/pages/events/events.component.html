@@ -2,11 +2,7 @@
 <div class="event-div">
 	<div class="logs-container">
 		<div class="log-div" *ngFor="let log of logs">
-			<img
-				class="user-image"
-				src="https://www.australie-guidebackpackers.com/wp-content/uploads/2020/03/dummy-image-square.jpg"
-				alt="dummy-image-square"
-			/>
+			<img class="user-image" src="{{ log.profilePic }}" alt="user-profile-picture" />
 			<p class="log-message">
 				{{ log.message }}
 			</p>

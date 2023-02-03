@@ -26,6 +26,7 @@ export class EventsComponent {
 			this.logs?.push({
 				timestamp: doc.data()['timestamp'],
 				message: doc.data()['message'],
+				profilePic: doc.data()['profilePic'],
 			});
 		});
 	}
