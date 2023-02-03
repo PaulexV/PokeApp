@@ -12,12 +12,12 @@
 	</div>
 
 	<div class="description">
-		<img class="profilePicture-div" src="../../../assets/pp.png" width="200" height="250" alt="" />
+		<img class="profilePicture-div" src={{profile_picture}} width="200" height="250" alt="" />
 		<p>{{ user.description }}</p>
 	</div>
 
 	<div class="changePP">
-		<button>changer de photo</button>
+		<button (click)="updateProfilePicture()">changer de photo</button>
 	</div>
 
 	<div class="changeDescription">

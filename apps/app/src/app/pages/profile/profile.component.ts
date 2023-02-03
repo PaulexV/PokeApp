@@ -6,13 +6,7 @@ import { HeaderComponent } from '../../components/header/header.component';
 import { PokeUser } from '../../models/user';
 import { HuntService } from '../hunt/hunt.service';
 import { ProfileService } from './profile.service';
-import {
-	getDownloadURL,
-	ref,
-	Storage,
-	uploadBytes,
-  } from '@angular/fire/storage';
-
+import { getDownloadURL, ref, Storage, uploadBytes } from '@angular/fire/storage';
 
 @Component({
 	selector: 'poke-app-profile',
@@ -31,6 +25,8 @@ export class ProfileComponent implements OnInit {
 	@ViewChild('canvas')
 	canvas: ElementRef | undefined;
 
+	profile_picture = "../../../assets/pp.png"
+
 	public ngOnInit() {
 		navigator.mediaDevices.getUserMedia({ video: { width: 200, height: 200 } }).then((stream) => {
 			this.stream = stream;
@@ -38,35 +34,26 @@ export class ProfileComponent implements OnInit {
 	}
 
 	public capture() {
-		const video = document.querySelector("video")
+		const video = document.querySelector('video');
 		this.canvas?.nativeElement.getContext('2d').drawImage(video, 0, 0, 200, 200);
-		const B64IMG = this.canvas?.nativeElement.toDataURL('image/png')
-		const u8arr = this.toByteArray(B64IMG)
-		const filename = 'test.jpeg'
-		const file : File = new File([u8arr],filename,{type: 'image/jpeg'})
-		console.log(this.canvas?.nativeElement.toDataURL('image/png'))
-		console.log(B64IMG)
+		const B64IMG = this.canvas?.nativeElement.toDataURL('image/png');
+		console.log(B64IMG);
 
-		const fileDetails = ref(this.storage, filename);
-		uploadBytes(fileDetails, file)
-		  .then(() => {
-			return getDownloadURL(fileDetails);
-		  })
-		  .then((url) => console.log(url));
-		
+		fetch(B64IMG)
+			.then((res) => res.blob())
+			.then((blob) => {
+				this.user$.pipe(take(1)).subscribe((user) => {
+					const filename = user?.id + ".png";
+					const file = new File([blob], filename, { type: 'image/png' });
 
-	}	
-	
+					const fileDetails = ref(this.storage, filename);
+					uploadBytes(fileDetails, file).then((snap) => {
+						console.log(snap);
+					});
+				});
+			});
+	}
 
-	private toByteArray(B64IMG: string) {
-		const bstr = atob(B64IMG);
-		let n = bstr.length;
-		const u8arr = new Uint8Array(n);
-		while (n--) {
-		  u8arr[n] = bstr.charCodeAt(n);
-		}
-		return u8arr;
-	  }
 	constructor(
 		private readonly auth: AuthService,
 		private readonly huntservice: HuntService,
@@ -74,6 +61,7 @@ export class ProfileComponent implements OnInit {
 		private readonly storage: Storage
 	) {
 		this.user$ = this.huntservice.getProfile();
+		this.updateProfilePicture()
 	}
 
 	changeDescription(data: string) {
@@ -82,15 +70,11 @@ export class ProfileComponent implements OnInit {
 		});
 	}
 
-	// test() {
-	// 	this.user$.pipe(take(1)).subscribe(user => {
-	// 		if(user){
-	// 			const Name = this.user$.name
-	// 		}
-	// 	})		
-	// }
-
-
+	updateProfilePicture(){
+		this.user$.pipe(take(1)).subscribe((user) => {
+			this.profile_picture = `https://firebasestorage.googleapis.com/v0/b/poke-app-bf936.appspot.com/o/${user?.id}.png?alt=media`
+		})
+	}
 
 	logout() {
 		this.auth.signOut();
