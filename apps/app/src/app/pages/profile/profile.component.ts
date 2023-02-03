@@ -7,13 +7,21 @@ import { PokeUser } from '../../models/user';
 import { HuntService } from '../hunt/hunt.service';
 import { ProfileService } from './profile.service';
 import { ref, Storage, uploadBytes } from '@angular/fire/storage';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
 	selector: 'poke-app-profile',
 	standalone: true,
 	templateUrl: './profile.component.html',
 	styleUrls: ['./profile.component.css'],
-	imports: [HeaderComponent, CommonModule],
+	imports: [
+		HeaderComponent, 
+		CommonModule,
+		MatCardModule,
+		MatInputModule,
+		MatButtonModule,],
 })
 export class ProfileComponent implements OnInit {
 	description = '';
@@ -21,7 +29,7 @@ export class ProfileComponent implements OnInit {
 	user$: Observable<PokeUser | null>;
 
 	stream: MediaStream | undefined;
-	camera_on = false
+	camera_on = false;
 
 	@ViewChild('canvas')
 	canvas: ElementRef | undefined;
@@ -29,7 +37,7 @@ export class ProfileComponent implements OnInit {
 	@ViewChild('filePreview')
 	private filePreview!: ElementRef;
 
-	profile_picture = "../../../assets/pp.png"
+	profile_picture = '../../../assets/pp.png';
 
 	public ngOnInit() {
 		navigator.mediaDevices.getUserMedia({ video: { width: 200, height: 200 } }).then((stream) => {
@@ -46,12 +54,12 @@ export class ProfileComponent implements OnInit {
 			.then((res) => res.blob())
 			.then((blob) => {
 				this.user$.pipe(take(1)).subscribe((user) => {
-					const filename = user?.id + ".png";
+					const filename = user?.id + '.png';
 					const file = new File([blob], filename, { type: 'image/png' });
 
 					const fileDetails = ref(this.storage, filename);
 					uploadBytes(fileDetails, file).then(() => {
-						this.updateProfilePicture()
+						this.updateProfilePicture();
 					});
 				});
 			});
@@ -64,7 +72,7 @@ export class ProfileComponent implements OnInit {
 		private readonly storage: Storage
 	) {
 		this.user$ = this.huntservice.getProfile();
-		this.updateProfilePicture()
+		this.updateProfilePicture();
 	}
 
 	changeDescription(data: string) {
@@ -73,27 +81,29 @@ export class ProfileComponent implements OnInit {
 		});
 	}
 
-	updateProfilePicture(){
+	updateProfilePicture() {
 		this.user$.pipe(take(1)).subscribe((user) => {
-			const url = `https://firebasestorage.googleapis.com/v0/b/poke-app-bf936.appspot.com/o/${user?.id}.png?alt=media&t=${new Date().getTime()}`
-			const link = this.getImageOrFallback(
-					url, "../../../assets/pp.png"
-				).then(result => this.profile_picture = result as string)
-			this.profile_picture = url
-		})
+			const url = `https://firebasestorage.googleapis.com/v0/b/poke-app-bf936.appspot.com/o/${
+				user?.id
+			}.png?alt=media&t=${new Date().getTime()}`;
+			const link = this.getImageOrFallback(url, '../../../assets/pp.png').then(
+				(result) => (this.profile_picture = result as string)
+			);
+			this.profile_picture = url;
+		});
 	}
 
-	getImageOrFallback(path: string, fallback: string){
-		return new Promise(resolve => {
-		  const img = new Image();
-		  img.src = path;
-		  img.onload = () => resolve(path);
-		  img.onerror = () => resolve(fallback);
+	getImageOrFallback(path: string, fallback: string) {
+		return new Promise((resolve) => {
+			const img = new Image();
+			img.src = path;
+			img.onload = () => resolve(path);
+			img.onerror = () => resolve(fallback);
 		});
-	  };
-	
+	}
+
 	toggleCamera() {
-		this.camera_on = !this.camera_on
+		this.camera_on = !this.camera_on;
 	}
 
 	logout() {
